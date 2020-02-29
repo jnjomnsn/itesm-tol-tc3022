@@ -4,6 +4,9 @@ void setup(){
 }
 
 void draw(){
+  perspective(fov, float(width)/float(height), 
+            cameraZ/10.0, cameraZ*10.0);
+            
   translate(40,40);
   myFilledShape();
   
