@@ -1,4 +1,4 @@
-# items-tol-tc3022
+# itesm-tol-tc3022
 En este repositorio podrás ir subiendo cada uno de tus ejercicios, para ellos debes:
 
 1. Clonar el [repositorio](https://github.com/jnjomnsn/items-tol-tc3022) en tu computadora local. En caso de ser necesario, solicita la utorización para poder contribuir al repositorio.
