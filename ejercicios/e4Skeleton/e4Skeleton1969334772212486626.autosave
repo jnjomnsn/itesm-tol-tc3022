@@ -1,0 +1,48 @@
+void setup() {
+    size(800,800,P3D);
+}
+
+void draw() {
+    background(255);
+    ambientLight(0,0,255);
+    skeleton(200,500,-60);
+    camera(mouseX-200, mouseY, (height/2)/tan(PI/6), width/4,height/2,0,0,1,0);
+    float cameraZ = (height/2.0) / tan((PI/3.0)/2.0);
+    perspective(PI/3.0, float(width)/ float(height), cameraZ, cameraZ*2.0);
+
+}
+
+void skeleton(int x, int y, int z){
+    pushMatrix();
+    translate(x, y);
+    circle(0,0,10);
+    popMatrix();
+    pushMatrix();
+    translate(x,y-200,z);
+    sphere(40);
+    popMatrix();
+    pushMatrix();
+    translate(x,y-110,z);
+    box(50, 90, 40);
+    popMatrix();
+    pushMatrix();
+    translate(x-15,y-30,z);
+    box(20, 65, 40);
+    popMatrix();
+    pushMatrix();
+    translate(x+15,y-30,z);
+    box(20, 65, 40);
+    popMatrix();
+    pushMatrix();
+    translate(x+35, y-155,z);
+    rotateZ(radians(-25));
+    translate(0,(65/2));
+    box(20, 65, 40);
+    popMatrix();
+    pushMatrix();
+    translate(x-35, y-155,z);
+    rotateZ(radians(25));
+    translate(0,(65/2));
+    box(20, 65, 40);
+    popMatrix();
+}
