@@ -1,20 +1,14 @@
-int x=200;
-int y=300;
-int z=0;
+int x=300;
+int y=400;
+int z=-50;
 
 void setup()
 {
-  size(500,500,P3D);
+  size(600,600,P3D);     //dimensiones de la pantalla
 }
 
 void draw()
 {
-  background(0);
-  pointLight(255, 0, 0, width/2,height/2, 400);
-  noStroke();
-  fill(200);
-  camera(mouseX,height/2,(height/2) / tan(PI/6),width/2,height/2,0,0,1,0);
-  skeleton(x,y,z);
   background(0);                                                              //fondo negro
   pointLight(255, 0, 0, width/2,height/2, 400);                               //luz tono rojo
   noStroke();                                                                 //quitar contorno
@@ -24,16 +18,16 @@ void draw()
   skeleton(x,y,z);                                                            //Funcion que dibuja el esqueleto
 }
 
-void skeleton(int x, int y, int z)
+void skeleton(int x, int y, int z)    //recibe el punto de origen como referencia
 {
-  //mostrar el origen  X = 200 Y = 300 Z = 0
+  //mostrar el origen  X = 300 Y = 400 Z = -50 por default
   pushMatrix();
   translate(x,y,z);   //movernos al punto de origen
   box(5,5,5);         //marcar el origen
   popMatrix();
   
-  pushMatrix();
   //iniciar dibujo del esqueleto
+  
   //cabeza
   pushMatrix();
   translate(x,y-210,z);       //subir 210 unidades
