@@ -15,6 +15,13 @@ void draw()
   fill(200);
   camera(mouseX,height/2,(height/2) / tan(PI/6),width/2,height/2,0,0,1,0);
   skeleton(x,y,z);
+  background(0);                                                              //fondo negro
+  pointLight(255, 0, 0, width/2,height/2, 400);                               //luz tono rojo
+  noStroke();                                                                 //quitar contorno
+  float cameraZ = (height/2.0) / tan((PI/3.0)/2.0);
+  perspective(PI/3.0, float(width)/ float(height), cameraZ, cameraZ*2.0);     //modificar la perspectiva
+  camera(mouseX,height/2,(height/2) / tan(PI/6),width/2,height/2,0,0,1,0);    //modificar camara
+  skeleton(x,y,z);                                                            //Funcion que dibuja el esqueleto
 }
 
 void skeleton(int x, int y, int z)
@@ -26,27 +33,37 @@ void skeleton(int x, int y, int z)
   popMatrix();
   
   pushMatrix();
+  //iniciar dibujo del esqueleto
   //cabeza
-  translate(x,y-220,z);    // mover al 200,80,0
-  sphere(30);              //dibujar la cabeza con diametro 30
+  pushMatrix();
+  translate(x,y-210,z);       //subir 210 unidades
+  sphere(30);                 //dibujar la cabeza con radio de 30
+  popMatrix();
   //tronco
-  translate(x-200,y-220,z);   // mover los ejes 0,80,0
-  box(60,100,20);             //dibujar torso de 60x100x20
+  pushMatrix();
+  translate(x,y-130,z);       //subir 130 unidades
+  box(60,90,20);              //dibujar torso de 60x100x20
+  popMatrix();
   //Brazo Der
-  translate(x-140,y-310,z);   //mover los ejes 60,-10,0
+  pushMatrix();
+  translate(x+60,y-140,z);    //mover 60 a la derecha, subir 140
   rotate(radians(-30));       //Rotar el brazo -30 grados
   box(20,80,20);              //dibujar el brazo de 20x80x20
+  popMatrix();                
   //Brazo Izq
-  translate(x-300,y-360,z);   //mover los ejes -100,-60,0
-  rotate(radians(60));        // rotar el brazo 60 grados
+  pushMatrix();
+  translate(x-60,y-140,z);    //mover 60 a la izquierda y subir 140
+  rotate(radians(30));        // rotar el brazo 30 grados
   box(20,80,20);              //dibujar el brazo de 20x80x20
+  popMatrix();
   //Pierna Der
-  translate(x-115,y-230,z);   //mover los ejes 85,70,0
-  rotate(radians(-30));       //rotar -30 para quedar en 0 
+  pushMatrix();
+  translate(x+20,y-40,z);     //mover 20 a la derecha, subir 40
   box(20,90,20);              //dibujar la pierna de 20X90x20
+  popMatrix();
   //Pierna Izq
-  translate(x-165,y-300,z);   //mover los ejes 35,0,0
+  pushMatrix();
+  translate(x-20,y-40,z);     //mover 20 a la izquierda y subir 40
   box(20,90,20);              //dibujar la pierna de 20x90x20
-  
   popMatrix();
 }
