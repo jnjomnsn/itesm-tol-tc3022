@@ -22,3 +22,7 @@ A00000000/
 ------| e3Transformations.pde
 ----| e4Skeleton/
 ------| e4Skeleton.pde
+----| e5Matrices/
+------| e5Matrices.xlsx
+----| e6Icosahedron/
+------| e6Icosahedron.pde
