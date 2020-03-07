@@ -1,5 +1,4 @@
 void setup(){
-  //camera(mouseX,height/2,(height/2)/tan(PI/6),width/2,height/2,0,0,1,0);
   size(500,500,P3D);
 }
 
@@ -8,27 +7,30 @@ void lights(){
 }
 
 void  draw(){
+  background(255);
+  camera(mouseX,height/2,(height/2)/tan(PI/6),width/2,height/2,0,0,1,0);
   skeleton(200,150,200);
   
 }
 
 void rightArm(){
-  
+  box(5,40,5);
 }
 
 void leftArm(){
-  box(20,60,20);
+  box(5,40,5);
 }
 
 void torso(){
+  box(20,40,20);
 }
 
 void rightLeg(){
-  box(10,30,10);
+    box(5,40,5);
 }
 
 void leftLeg(){
-  box(10,30,10);
+    box(5,40,5);
 }
 
 void head(){
@@ -44,21 +46,31 @@ void skeleton(int x, int y, int z){
   popMatrix();
   pushMatrix();
   translate(x,y+140,z);
-  box(22,40,20);
+  //torso
+  torso();
   popMatrix();
   //translate(int)
   pushMatrix();
-  translate(x-10,y+180,z);
-  box(5,40,5);
+  translate(x-8,y+180,z);
+  //rightLeg
+  rightLeg();
   popMatrix();
   pushMatrix();
-  translate(x+10,y+180,z);
-  box(5,40,5);
+  translate(x+8,y+180,z);
+  //leftleg
+  leftLeg();
   popMatrix();
   pushMatrix();
-  translate(x+15,y+140,z);
+  translate(x+25,y+135,z);
+  rotate(radians(-45));
+  //rightarm
+  rightArm();
+  popMatrix();
+  pushMatrix();
+  translate(x-25,y+135,z);
   rotate(radians(45));
-  box(5,40,5);
+  //leftarm
+  leftArm();
   popMatrix();
   
   
