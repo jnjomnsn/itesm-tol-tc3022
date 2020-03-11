@@ -21,7 +21,7 @@ void setup(){
   w = width;
   h = height;
   
-  camera = new PeasyCam(this,250, 250, 10, 500);
+  camera = new PeasyCam(this, 250, 250, 10, 500);
   
   loadedTexture = loadImage("texture.JPG");
 }
@@ -41,7 +41,6 @@ void pre() {
     // Sketch window has resized
     w = width;
     h = height;
-
   }
 }
 
@@ -53,7 +52,7 @@ void icosaedro(int x, int y, int z){
     translate(x,y,z);
     
     // Scale according the original coordinates
-    scale(w/500);
+    scale(w/600);
     
     // Draw the rectangle # 1.
     fill(255,255,0);
@@ -157,7 +156,7 @@ void dodecaedro(int x, int y, int z){
     translate(x,y,z);
     
     // Scale according the original coordinates
-    scale(w/500);
+    scale(w/600);
     
     // Set vertices in the array of vectors (using the formulas from https://en.wikipedia.org/wiki/Dodecahedron#Regular_dodecahedra).
     vVector[0] = new PVector( 100,  100,  100);
