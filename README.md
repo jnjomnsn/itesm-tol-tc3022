@@ -26,3 +26,7 @@ A00000000/
 ------| e5Matrices.xlsx
 ----| e6Icosahedron/
 ------| e6Icosahedron.pde
+--| examenes/
+----| parcial1/
+------| parcial1.pde
+------| README.md
