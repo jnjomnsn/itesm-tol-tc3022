@@ -4,13 +4,13 @@ PeasyCam cam;
 PImage img;
 float angle = 0.0;
 float d = 1000;
-boolean isRotating = true; 
-int counterForRotation=0;
+boolean isRotating = true;
+//variables for the rotation of the figures
+float counterForRotationX=0, counterForRotationY=0;
 
 void setup(){
   size(700,500,P3D);
   img = loadImage("texture.png");
-  cam = new PeasyCam(this, 0, 0, 0, 50);
 }
 
 void draw(){
@@ -19,7 +19,6 @@ void draw(){
   lights();
   //icosaedro(width/2,height/2,0);
   dodecaedro(width/2,height/2,0);
-  camera(mouseX, mouseY, (height/2)/tan(PI/6), width/2, height/2, 0, 0, 1, 0);
 }
 
 void icosaedro(int x, int y, int z){
@@ -29,8 +28,7 @@ void icosaedro(int x, int y, int z){
 
   translate(x, y, z);
 
-  counterForRotation++;
-  rotateY(radians(counterForRotation));    // rotate
+  rotateFigure(true);
 
   //plano 0 en z, con width en x y height en y
   beginShape();
@@ -110,7 +108,6 @@ void icosaedro(int x, int y, int z){
   fill(255);
 }
 
-
 void dodecaedro(int x, int y, int z){
   float goldenRatio = 1.618033;
   float invGoldenRatio = 0.618033;
@@ -120,8 +117,7 @@ void dodecaedro(int x, int y, int z){
   
   translate(x, y, z);
   
-  counterForRotation++;
-  rotateY(radians(counterForRotation));
+  rotateFigure(true);
 
   noFill();
   stroke(#09fbc3);
@@ -232,4 +228,19 @@ void dodecaedro(int x, int y, int z){
   vertex(-cubeSize, cubeSize, -cubeSize, 232,472);
   vertex(0,widthRectIco, -heightRect, 188,337);
   endShape(CLOSE);
+}
+
+void rotateFigure(boolean positiveDirection){
+  if (positiveDirection)
+    counterForRotationX++;
+  else
+    counterForRotationX--;
+
+  rotateY(radians(counterForRotationX));
+  rotateX(radians(counterForRotationY));
+}
+
+void mouseDragged() {
+  counterForRotationX = mouseX/5;
+  counterForRotationY = -mouseY/5;
 }
