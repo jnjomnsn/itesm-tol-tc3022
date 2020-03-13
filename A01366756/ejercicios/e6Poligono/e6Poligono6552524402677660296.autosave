@@ -1,27 +1,18 @@
-import peasy.*;
-
-PeasyCam cam;
-PImage img;
-float angle = 0.0;
-float d = 1000;
+  PImage img;
 
 void setup(){
   size(700,500,P3D);
   img = loadImage("texture.png");
-  // cam = new PeasyCam(this, 100);
-  // cam.setMinimumDistance(50);
-  // cam.setMaximumDistance(1000);
 }
 
 void draw(){
-  background(0);
-  noStroke();
-  lights();
-  //icosaedro(width/2,height/2,0);
-  dodecaedro(width/2,height/2,0);
-  // camera(mouseX, mouseY, (height/2)/tan(PI/6), width/2, height/2, 0, 0, 1, 0);
-  angle += PI/300;
-  camera(cos(angle)*d, 10, (height/2), width/2, height/2, 0, 0, 1, 0);
+    background(0);
+    noStroke();
+    lights();
+    //icosaedro(width/2,height/2,0);
+    dodecaedro(width/2,height/2,0);
+    camera(mouseX, mouseY, (height/2)/tan(PI/6), width/2, height/2, 0, 0, 1, 0);
+
 }
 
 void icosaedro(int x, int y, int z){
@@ -121,11 +112,11 @@ void dodecaedro(int x, int y, int z){
   stroke(#09fbc3);
   beginShape();
   texture(img);
-  vertex(0, -widthRectIco, heightRect, heightRect);
-  vertex(-cubeSize, -cubeSize, cubeSize, cubeSize);
-  vertex(-widthRectIco, -heightRect, 0, 0);
-  vertex(widthRectIco, -heightRect, 0,0);
-  vertex(cubeSize, -cubeSize, cubeSize, cubeSize);
+  vertex(0, -widthRectIco, heightRect,0);
+  vertex(-cubeSize, -cubeSize, cubeSize,0);
+  vertex(-widthRectIco, -heightRect, 0,0);
+  vertex(widthRectIco, -heightRect, 0,1);
+  vertex(cubeSize, -cubeSize, cubeSize,1);
   endShape(CLOSE);
 
   beginShape();
