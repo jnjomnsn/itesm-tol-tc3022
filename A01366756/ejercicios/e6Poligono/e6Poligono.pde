@@ -1,15 +1,16 @@
-float rotation=0;
+PImage img;
 
 void setup(){
   size(700,500,P3D);
+  img = loadImage("texture.png");
 }
 
 void draw(){
     background(0);
     noStroke();
     lights();
-    //icosaedro(350,250,0);
-    dodecaedro(350,250,0);
+    //icosaedro(width/2,height/2,0);
+    dodecaedro(width/2,height/2,0);
     camera(mouseX, mouseY, (height/2)/tan(PI/6), width/2, height/2, 0, 0, 1, 0);
 
 }
@@ -100,107 +101,109 @@ void icosaedro(int x, int y, int z){
 
 
 void dodecaedro(int x, int y, int z){
-  float widthRect = height/4;
-  float widthRectIco = height/4;
-  float heightRect = widthRectIco;
-
-  //PImage img = loadImage("texture.jpg");
+  float goldenRatio = 1.618033;
+  float invGoldenRatio = 0.618033;
+  float cubeSize = width/8;
+  float widthRectIco = cubeSize*invGoldenRatio;
+  float heightRect = cubeSize*goldenRatio;
   
   translate(x, y, z);
-
+  noFill();
+  stroke(#09fbc3);
   beginShape();
-  vertex(0, -widthRectIco, heightRect);
-  vertex(-widthRect, -widthRect, widthRect);
-  vertex(-widthRectIco, -heightRect, 0);
-  vertex(widthRectIco, -heightRect, 0);
-  vertex(widthRect, -widthRect, widthRect);
+  texture(img);
+  vertex(0, -widthRectIco, heightRect,0);
+  vertex(-cubeSize, -cubeSize, cubeSize,0);
+  vertex(-widthRectIco, -heightRect, 0,0);
+  vertex(widthRectIco, -heightRect, 0,1);
+  vertex(cubeSize, -cubeSize, cubeSize,1);
   endShape(CLOSE);
 
   beginShape();
   vertex(widthRectIco, -heightRect, 0);
-  vertex(widthRect, -widthRect, -widthRect);
+  vertex(cubeSize, -cubeSize, -cubeSize);
   vertex(heightRect, 0, -widthRectIco);
   vertex(heightRect, 0, widthRectIco);
-  vertex(widthRect, -widthRect, widthRect);
+  vertex(cubeSize, -cubeSize, cubeSize);
   endShape(CLOSE);
 
   beginShape();
   vertex(heightRect, 0, widthRectIco);
-  vertex(widthRect, widthRect, widthRect);
+  vertex(cubeSize, cubeSize, cubeSize);
   vertex(0, widthRectIco, heightRect);
   vertex(0, -widthRectIco, heightRect);
-  vertex(widthRect, -widthRect, widthRect);
+  vertex(cubeSize, -cubeSize, cubeSize);
   endShape(CLOSE);
 
   beginShape();
   vertex(0, widthRectIco, heightRect);
-  vertex(-widthRect, widthRect, widthRect);
+  vertex(-cubeSize, cubeSize, cubeSize);
   vertex(-widthRectIco, heightRect, 0);
   vertex(widthRectIco, heightRect, 0);
-  vertex(widthRect, widthRect, widthRect);
+  vertex(cubeSize, cubeSize, cubeSize);
   endShape(CLOSE);
 
   beginShape();
-  vertex(widthRect, widthRect, -widthRect);
+  vertex(cubeSize, cubeSize, -cubeSize);
   vertex(heightRect, 0, -widthRectIco);
   vertex(heightRect, 0, widthRectIco);
-  vertex(widthRect, widthRect, widthRect);
+  vertex(cubeSize, cubeSize, cubeSize);
   vertex(widthRectIco, heightRect, 0);
   endShape(CLOSE);
 
   beginShape();
-  vertex(-widthRect, -widthRect, -widthRect);
+  vertex(-cubeSize, -cubeSize, -cubeSize);
   vertex(-heightRect, 0, -widthRectIco);
   vertex(-heightRect, 0, widthRectIco);
-  vertex(-widthRect, -widthRect, widthRect);
+  vertex(-cubeSize, -cubeSize, cubeSize);
   vertex(-widthRectIco, -heightRect, 0);
   endShape(CLOSE);
 
   beginShape();
   vertex(-heightRect, 0, -widthRectIco);
   vertex(-heightRect, 0, widthRectIco);
-  vertex(-widthRect, widthRect, widthRect);
+  vertex(-cubeSize, cubeSize, cubeSize);
   vertex(-widthRectIco, heightRect, 0);
-  vertex(-widthRect, widthRect, -widthRect);
+  vertex(-cubeSize, cubeSize, -cubeSize);
   endShape(CLOSE);
 
   beginShape();
   vertex(-heightRect, 0, widthRectIco);
-  vertex(-widthRect, -widthRect, widthRect);
+  vertex(-cubeSize, -cubeSize, cubeSize);
   vertex(0, -widthRectIco, heightRect);
   vertex(0, widthRectIco, heightRect);
-  vertex(-widthRect, widthRect, widthRect);
+  vertex(-cubeSize, cubeSize, cubeSize);
   endShape(CLOSE);
 
   beginShape();
   vertex(0,widthRectIco, -heightRect);
-  vertex(widthRect, widthRect, -widthRect);
+  vertex(cubeSize, cubeSize, -cubeSize);
   vertex(widthRectIco, heightRect, 0);
   vertex(-widthRectIco, heightRect, 0);
-  vertex(-widthRect, widthRect, -widthRect);
+  vertex(-cubeSize, cubeSize, -cubeSize);
   endShape(CLOSE);
 
   beginShape();
   vertex(0,-widthRectIco, -heightRect);
-  vertex(widthRect, -widthRect, -widthRect);
+  vertex(cubeSize, -cubeSize, -cubeSize);
   vertex(widthRectIco, -heightRect, 0);
   vertex(-widthRectIco, -heightRect, 0);
-  vertex(-widthRect, -widthRect, -widthRect);
+  vertex(-cubeSize, -cubeSize, -cubeSize);
   endShape(CLOSE);
 
   beginShape();
   vertex(0,-widthRectIco, -heightRect);
-  vertex(widthRect, -widthRect, -widthRect);
+  vertex(cubeSize, -cubeSize, -cubeSize);
   vertex(heightRect, 0, -widthRectIco);
-  vertex(widthRect, widthRect, -widthRect);
+  vertex(cubeSize, cubeSize, -cubeSize);
   vertex(0,widthRectIco, -heightRect);
   endShape(CLOSE);
 
   beginShape();
   vertex(0,-widthRectIco, -heightRect);
-  vertex(-widthRect, -widthRect, -widthRect);
+  vertex(-cubeSize, -cubeSize, -cubeSize);
   vertex(-heightRect, 0, -widthRectIco);
-  vertex(-widthRect, widthRect, -widthRect);
+  vertex(-cubeSize, cubeSize, -cubeSize);
   vertex(0,widthRectIco, -heightRect);
   endShape(CLOSE);
 }
