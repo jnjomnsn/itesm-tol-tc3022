@@ -9,7 +9,7 @@ float radio = 42.5;//2.6
 float apotema = 34.4;//3.23
 float catmods = 15.45;//7.2
 float ang = 0;
-int speed;
+int speed = 1;
 boolean isIco = true;
 boolean isStroked = true;
 public class Vertice{
