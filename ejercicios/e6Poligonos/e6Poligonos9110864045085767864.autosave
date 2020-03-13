@@ -1,0 +1,196 @@
+ void setup() {
+    size(600, 600,P3D);
+}
+int ancho = 50;
+int alto = 100;
+int lado = 50;
+float radio = 42.5;
+float apotema = 34.4;
+float catmods = 15.45;
+float catmodl = 47.55;
+float totalh = 111.26;
+public class Vertice{
+    public int x, y, z;
+    public Vertice (int x, int y, int z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+    }
+}
+public class VerticeD{
+    public float x, y, z;
+    public VerticeD (float x, float y, float z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+    }
+}
+Vertice v1 = new Vertice(-ancho/2,0,-alto/2);
+Vertice v2 = new Vertice(ancho/2,0,-alto/2);
+Vertice v3 = new Vertice(ancho/2,0,alto/2);
+Vertice v4 = new Vertice(-ancho/2,0,alto/2);
+
+Vertice v5 = new Vertice(0,alto/2,-ancho/2);
+Vertice v6 = new Vertice(0,alto/2,ancho/2);
+Vertice v7 = new Vertice(0,-alto/2,ancho/2);
+Vertice v8 = new Vertice(0,-alto/2,-ancho/2);
+
+
+Vertice v9 = new Vertice(-alto/2,ancho/2,0);
+Vertice v10 = new Vertice(-alto/2,-ancho/2,0);
+Vertice v11 = new Vertice(alto/2,-ancho/2,0);
+Vertice v12 = new Vertice(alto/2,ancho/2,0);
+
+
+VerticeD vd1 = new VerticeD(lado/2,0,-apotema);
+VerticeD vd2 = new VerticeD(lado/2+catmods,0,-apotema+catmodl);
+VerticeD vd3 = new VerticeD(0,0,radio);
+VerticeD vd4 = new VerticeD(-(lado/2+catmods),0,-apotema+catmodl);
+VerticeD vd5 = new VerticeD(-lado/2,0,-apotema);
+
+VerticeD vd6 = new VerticeD(-lado/2,totalh,apotema);
+VerticeD vd7 = new VerticeD(-(lado/2+catmods),totalh,apotema-catmodl);
+VerticeD vd8 = new VerticeD(0,totalh,-radio);
+VerticeD vd9 = new VerticeD(lado/2+catmods,totalh,apotema-catmodl);
+VerticeD vd10 = new VerticeD(lado/2,totalh,apotema);
+
+
+
+
+void draw() {
+    camera(mouseX, mouseY, (height/2)/tan(PI/6), width/2, height/2, 0, 0, 1, 0);
+    background(255);
+    pushMatrix();
+    translate(200, 200, -200);
+    rotateX(radians(45));
+    rotateY(radians(45));
+    // rotateY(radians(45));
+    // rotateX(radians(45));
+    // fill(255,0,0);
+    // beginShape();
+    // vertex(v1.x, v1.y, v1.z);
+    // vertex(v2.x, v2.y, v2.z);
+    // vertex(v3.x, v3.y, v3.z);
+    // vertex(v4.x, v4.y, v4.z);
+    // endShape(CLOSE);
+    // fill(0,255,0);
+    // beginShape();
+    // vertex(v5.x, v5.y, v5.z);
+    // vertex(v6.x, v6.y, v6.z);
+    // vertex(v7.x, v7.y, v7.z);
+    // vertex(v8.x, v8.y, v8.z);
+    // endShape(CLOSE);
+    // fill(0,0,255);
+    // beginShape();
+    // vertex(v9.x, v9.y, v9.z);
+    // vertex(v10.x, v10.y, v10.z);
+    // vertex(v11.x, v11.y, v11.z);
+    // vertex(v12.x, v12.y, v12.z);
+    // endShape(CLOSE);
+    // noFill();
+    // stroke(0);
+    // beginShape(TRIANGLE_FAN);
+    // vertex(v1.x, v1.y, v1.z);
+    // vertex(v2.x, v2.y, v2.z);
+    // vertex(v5.x, v5.y, v5.z);
+    // vertex(v9.x, v9.y, v9.z);
+    // vertex(v10.x, v10.y, v10.z);
+    // vertex(v8.x, v8.y, v8.z);
+    // vertex(v2.x, v2.y, v2.z);
+    // endShape();
+    // beginShape(TRIANGLE_FAN);
+    // vertex(v11.x, v11.y, v11.z);
+    // vertex(v12.x, v12.y, v12.z);
+    // vertex(v2.x, v2.y, v2.z);
+    // vertex(v8.x, v8.y, v8.z);
+    // vertex(v7.x, v7.y, v7.z);
+    // vertex(v3.x, v3.y, v3.z);
+    // vertex(v12.x, v12.y, v12.z);
+    // endShape();
+    // beginShape(TRIANGLE_FAN);
+    // vertex(v6.x, v6.y, v6.z);
+    // vertex(v5.x, v5.y, v5.z);
+    // vertex(v12.x, v12.y, v12.z);
+    // vertex(v3.x, v3.y, v3.z);
+    // vertex(v4.x, v4.y, v4.z);
+    // vertex(v9.x, v9.y, v9.z);
+    // vertex(v5.x, v5.y, v5.z);
+    // endShape();
+    // beginShape(TRIANGLE);
+    // vertex(v4.x, v4.y, v4.z);
+    // vertex(v9.x, v9.y, v9.z);
+    // vertex(v10.x, v10.y, v10.z);
+    // endShape();
+    // beginShape(TRIANGLE);
+    // vertex(v4.x, v4.y, v4.z);
+    // vertex(v9.x, v9.y, v9.z);
+    // vertex(v7.x, v7.y, v7.z);
+    // endShape();
+    // beginShape(TRIANGLE);
+    // vertex(v7.x, v7.y, v7.z);
+    // vertex(v8.x, v8.y, v8.z);
+    // vertex(v9.x, v9.y, v9.z);
+    // endShape();
+    // beginShape(TRIANGLE);
+    // vertex(v3.x, v3.y, v3.z);
+    // vertex(v4.x, v4.y, v4.z);
+    // vertex(v7.x, v7.y, v7.z);
+    // endShape();
+    // beginShape(TRIANGLE);
+    // vertex(v5.x, v5.y, v5.z);
+    // vertex(v12.x, v12.y, v12.z);
+    // vertex(v2.x, v2.y, v2.z);
+    // endShape();
+    stroke(255,0,0);
+    beginShape();
+    vertex(vd1.x, vd1.y, vd1.z);
+    vertex(vd2.x, vd2.y, vd2.z);
+    vertex(vd3.x, vd3.y, vd3.z);
+    vertex(vd4.x, vd4.y, vd4.z);
+    vertex(vd5.x, vd5.y, vd5.z);
+    vertex(vd1.x, vd1.y, vd1.z);
+    endShape();
+    
+    
+    // beginShape();
+    // vertex(vd6.x, vd6.y, vd6.z);
+    // vertex(vd7.x, vd7.y, vd7.z);
+    // vertex(vd8.x, vd8.y, vd8.z);
+    // vertex(vd9.x, vd9.y, vd9.z);
+    // vertex(vd10.x, vd10.y, vd10.z);
+    // vertex(vd6.x, vd6.y, vd6.z);
+    // endShape();
+
+    popMatrix();
+    stroke(0,255,0);
+    pushMatrix();
+    translate(200, 200+30.76+34.4, -200+15.38);
+    rotateX(radians(116.57));
+    endShape();
+
+     beginShape();
+    vertex(vd1.x, vd1.y, vd1.z);
+    vertex(vd2.x, vd2.y, vd2.z);
+    vertex(vd3.x, vd3.y, vd3.z);
+    vertex(vd4.x, vd4.y, vd4.z);
+    vertex(vd5.x, vd5.y, vd5.z);
+    vertex(vd1.x, vd1.y, vd1.z);
+    endShape();
+    
+    
+    
+    
+    
+//    beginShape();
+//     vertex(vd6.x, vd6.y, vd6.z);
+//     vertex(vd7.x, vd7.y, vd7.z);
+//     vertex(vd8.x, vd8.y, vd8.z);
+//     vertex(vd9.x, vd9.y, vd9.z);
+//     vertex(vd10.x, vd10.y, vd10.z);
+//     vertex(vd6.x, vd6.y, vd6.z);
+//     endShape();
+    
+    popMatrix();
+    
+    
+}

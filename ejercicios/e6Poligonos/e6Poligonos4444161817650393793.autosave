@@ -1,0 +1,63 @@
+ void setup() {
+    size(500,500,P3D);
+}
+int ancho = 50;
+int alto = 100;
+public class Vertice{
+    public int x, y, z;
+    public Vertice (int x, int y, int z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+    }
+}
+Vertice v1 = new Vertice(-ancho/2,0,-alto/2);
+Vertice v2 = new Vertice(ancho/2,0,-alto/2);
+Vertice v3 = new Vertice(-ancho/2,0,alto/2);
+Vertice v4 = new Vertice(ancho/2,0,alto/2);
+
+Vertice v5 = new Vertice(0,alto/2,-ancho/2);
+Vertice v6 = new Vertice(0,alto/2,ancho/2);
+Vertice v7 = new Vertice(0,-alto/2,-ancho/2);
+Vertice v8 = new Vertice(0,-alto/2,-ancho/2);
+
+Vertice v9 = new Vertice(-alto/2,ancho/2,0);
+Vertice v10 = new Vertice(-alto/2,-ancho/2,0);
+Vertice v11 = new Vertice(alto/2,-ancho/2,0);
+Vertice v12 = new Vertice(alto/2,ancho/2,0);
+
+void draw() {
+    beginShape();
+    vertex(v1.x, v1.y, v1.z);
+    vertex(v2.x, v2.y, v2.z);
+    vertex(v3.x, v3.y, v3.z);
+    vertex(v4.x, v4.y, v4.z);
+    endShape(CLOSE);
+    beginShape();
+    vertex(v5.x, v5.y, v5.z);
+    vertex(v6.x, v6.y, v6.z);
+    vertex(v7.x, v7.y, v7.z);
+    vertex(v8.x, v8.y, v8.z);
+    endShape(CLOSE);
+    beginShape();
+    vertex(v9.x, v9.y, v9.z);
+    vertex(v10.x, v10.y, v12.z);
+    vertex(v11.x, v11.y, v11.z);
+    vertex(v12.x, v12.y, v12.z);
+    endShape(CLOSE);
+    beginShape(LINE_LOOP);
+    vertex(v1.x, v1.y, v1.z);
+    vertex(v2.x, v2.y, v2.z);
+    vertex(v3.x, v3.y, v3.z);
+    vertex(v4.x, v4.y, v4.z);
+    vertex(v5.x, v5.y, v5.z);
+    vertex(v6.x, v6.y, v6.z);
+    vertex(v7.x, v7.y, v7.z);
+    vertex(v8.x, v8.y, v8.z);
+    vertex(v9.x, v9.y, v9.z);
+    vertex(v10.x, v10.y, v12.z);
+    vertex(v11.x, v11.y, v11.z);
+    vertex(v12.x, v12.y, v12.z);
+    endShape();
+
+}

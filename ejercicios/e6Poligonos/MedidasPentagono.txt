@@ -1,0 +1,3 @@
+42.5 radio
+lado 50
+apotema 34.4
