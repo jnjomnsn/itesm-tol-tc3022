@@ -31,8 +31,6 @@ void setup() {
   // Set the fps to 60.
   frameRate(60);
   
-  lights();
-  
   // Create the PeasyCam object in the middle of the screen.
   camera = new PeasyCam(this, 300, 300, 0, 500);
 }
