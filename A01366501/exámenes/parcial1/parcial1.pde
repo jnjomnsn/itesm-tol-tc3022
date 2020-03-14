@@ -225,7 +225,12 @@ void displaySierpinskiInformation(){
   text("k = " + k, 20, 50,0); 
   // The number of fractals in a side is given by k^(3-1), as the implementation is already assuming k = k-1, only calculate 3^k.
   text("n = " + (int)(Math.pow(3, k)), 20, 90,0); 
-  
+  // Calculate the area.
+  double a = Math.pow(0.75, k);
+  text("A = " + a, 20, 130, 0);
+  // Calculate the perimeter.
+  double p = 3*(Math.pow(1.5, k));
+  text("P = " + p, 20, 170, 0);
   // Resume PeasyCam.
   camera.endHUD();
 }
