@@ -52,11 +52,26 @@
       vertex(50, 0, 100);
     endShape(CLOSE);
     beginShape();
+      vertex(0, 100, -50);
+      vertex(50, 0, -100);
+      vertex(-50, 0, -100);
+    endShape(CLOSE);
+    beginShape();
       vertex(100, -50, 0);
       vertex(50, 0, 100);
       vertex(0, -100, 50);
     endShape(CLOSE);
     beginShape();
+      vertex(-100, -50, 0);
+      vertex(-50, 0, -100);
+      vertex(-100, 50, 0);
+    endShape(CLOSE);
+    beginShape();
+      vertex(100, 50, 0);
+      vertex(0, 100, 50);
+      vertex(0, 100, -50);
+    endShape(CLOSE);
+    beginShape();
       vertex(0, 100, 50);
       vertex(-100, 50, 0);
       vertex(-50, 0, 100);
@@ -67,23 +82,8 @@
       vertex(-100, -50, 0);
     endShape(CLOSE);
     beginShape();
-      vertex(100, 50, 0);
-      vertex(0, 100, 50);
-      vertex(0, 100, -50);
-    endShape(CLOSE);
-    beginShape();
-      vertex(-100, 50, 0);
-      vertex(0, 100, 50);
-      vertex(0, 100, -50);
-    endShape(CLOSE);
-    beginShape();
       vertex(-100, -50, 0);
       vertex(0, -100, -50);
-      vertex(-50, 0, -100);
-    endShape(CLOSE);
-    beginShape();
-      vertex(0, 100, -50);
-      vertex(50, 0, -100);
       vertex(-50, 0, -100);
     endShape(CLOSE);
     beginShape();
@@ -92,16 +92,15 @@
       vertex(50, 0, -100);
     endShape(CLOSE);
     beginShape();
+      vertex(-100, 50, 0);
+      vertex(0, 100, 50);
+      vertex(0, 100, -50);
+    endShape(CLOSE);
+    beginShape();
       vertex(50, 0, -100);
       vertex(100, 50, 0);
       vertex(0, 100, -50);
     endShape(CLOSE);
-    beginShape();
-      vertex(-100, -50, 0);
-      vertex(-50, 0, -100);
-      vertex(-100, 50, 0);
-    endShape(CLOSE);
-    
     popMatrix();
    
   
@@ -124,7 +123,6 @@
      vertex(0,-goldenPow*100,  goldenR*100);
      vertex(0,goldenPow*100, goldenR*100);
    endShape(CLOSE);
-   
    beginShape();
      texture(texture);
      vertex(goldenR*100,0,goldenPow*100);
@@ -133,7 +131,6 @@
      vertex(goldenPow*100,goldenR*100,0);
      vertex(100,100,100);
    endShape(CLOSE);
-
    beginShape();
      texture(texture);
      vertex(100,-100,100);
@@ -142,7 +139,6 @@
      vertex(-100,-100,100);
      vertex(0, -goldenPow*100,  goldenR*100);
    endShape(CLOSE);
-
    beginShape();
      texture(texture);
      vertex(100,100,-100);
@@ -151,25 +147,6 @@
      vertex(100, -100, -100);
      vertex(goldenR*100,  0, -goldenPow*100);
    endShape(CLOSE);
-
-   beginShape();
-     texture(texture);
-     vertex(goldenPow*100, -goldenR*100,  0);
-     vertex(100,-100,-100);
-     vertex(goldenR*100,0, -goldenPow*100);
-     vertex(goldenR*100,0,  goldenPow*100);
-     vertex(100,-100,100);
-   endShape(CLOSE);
-
-   beginShape();
-     texture(texture);
-     vertex(100,-100,-100);
-     vertex(0, -goldenPow*100, -goldenR*100);
-     vertex(-100, -100,-100);
-     vertex(-goldenPow*100, -goldenR*100,  0);
-     vertex(goldenPow*100, -goldenR*100,  0);
-   endShape(CLOSE);
-
    beginShape();
      texture(texture);
      vertex(-100,100,100);
@@ -178,7 +155,22 @@
      vertex(-100,-100,100);
      vertex(-goldenR*100,0,goldenPow*100);
    endShape(CLOSE);
-
+   beginShape();
+     texture(texture);
+     vertex(-goldenPow*100,  goldenR*100,  0);
+     vertex(-100,100, -100);
+     vertex(-goldenR*100,0, -goldenPow*100);
+     vertex(-goldenR*100,0,goldenPow*100);
+     vertex(-100,100,100);
+   endShape(CLOSE);
+   beginShape();
+     texture(texture);
+     vertex(goldenPow*100, -goldenR*100,  0);
+     vertex(100,-100,-100);
+     vertex(goldenR*100,0, -goldenPow*100);
+     vertex(goldenR*100,0,  goldenPow*100);
+     vertex(100,-100,100);
+   endShape(CLOSE);
    beginShape();
      texture(texture);
      vertex(100,100,-100);
@@ -187,7 +179,6 @@
      vertex(-100,100,-100);
      vertex(0,goldenPow*100, -goldenR*100);
    endShape(CLOSE);
-
    beginShape();
      texture(texture);
      vertex(-100,100,-100);
@@ -196,7 +187,14 @@
      vertex(0, -goldenPow*100, -goldenR*100);
      vertex(0,  goldenPow*100, -goldenR*100);
    endShape(CLOSE);
-   
+   beginShape();
+     texture(texture);
+     vertex(100,-100,-100);
+     vertex(0, -goldenPow*100, -goldenR*100);
+     vertex(-100, -100,-100);
+     vertex(-goldenPow*100, -goldenR*100,  0);
+     vertex(goldenPow*100, -goldenR*100,  0);
+   endShape(CLOSE);
    beginShape();
      texture(texture);
      vertex(-goldenPow*100, -goldenR*100,  0);
@@ -204,15 +202,6 @@
      vertex(-goldenR*100,0, -goldenPow*100);
      vertex(-goldenR*100,0, goldenPow*100);
      vertex(-100, -100, 100);
-   endShape(CLOSE);
-
-   beginShape();
-     texture(texture);
-     vertex(-goldenPow*100,  goldenR*100,  0);
-     vertex(-100,100, -100);
-     vertex(-goldenR*100,0, -goldenPow*100);
-     vertex(-goldenR*100,0,goldenPow*100);
-     vertex(-100,100,100);
    endShape(CLOSE);
   
    popMatrix();
