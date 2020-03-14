@@ -100,6 +100,58 @@ Este algoritmo para crear un triángulo de recursión puede verse como un diagra
 ![alt text](https://runestone.academy/runestone/books/published/thinkcspy/_images/stCallTree.png)
 
 
+El algoritmo de reducción y duplicación se aplica 4 veces para crear las caras de la pirámide, primero se crea el triángulo de Sierpiński para  trasladarlo con la transformación de movimiento y luego rotarlo en el eje X 30° con el objetivo de crear la pirámide (algunas caras se rotan en el eje Y 90° para crear las caras de los lados).
+
+```
+void createSierpinski(){
+  ...
+  // Draw first, front face.
+  pushMatrix();
+    rotateX(radians(30));
+    translate(0,0,-174);
+    createTriangleSide(initialLeftX, initialLeftY, 
+                       initialRightX, initialRightY,
+                       initialCenterX, initialCenterY, 
+                       k, 0); 
+  popMatrix();
+  
+  // Draw second, left face.
+  pushMatrix();
+    rotateY(radians(90));
+    rotateX(radians(-30));
+    translate(0,0, 174);
+    createTriangleSide(initialLeftX, initialLeftY, 
+                       initialRightX, initialRightY,
+                       initialCenterX, initialCenterY, 
+                       k, 0); 
+  popMatrix();
+  
+  // Draw third, right face.
+  pushMatrix();
+    translate(300, 0);
+    rotateY(radians(90));
+    rotateX(radians(30));
+    translate(0,0,-174);
+    createTriangleSide(initialLeftX, initialLeftY, 
+                       initialRightX, initialRightY,
+                       initialCenterX, initialCenterY, 
+                       k, 0); 
+  popMatrix();
+  
+  // Draw fourth, back face. 
+  pushMatrix();
+    translate(0, 0, -300);
+    rotateX(radians(-30));
+    translate(0,0, 174);
+    createTriangleSide(initialLeftX, initialLeftY, 
+                       initialRightX, initialRightY,
+                       initialCenterX, initialCenterY, 
+                       k, 0);  
+  popMatrix();
+}
+```
+
+
 ### Cambios de color
 
 Para cambiar el color de la pirámide, se uso una función de lerping con una función de sin 
