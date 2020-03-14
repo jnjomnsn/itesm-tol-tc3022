@@ -19,13 +19,14 @@ Pasos para instalar la librería en Processing:
 Sketch -> Import Library -> Buscar: PeasyCam -> Install
 ```
 
-![alt text](https://raw.githubusercontent.com/jnjomnsn/itesm-tol-tc3022/A01366501/A01366501/ex%C3%A1menes/parcial1/screenshots/img_3.JPG)
+![alt text](https://raw.githubusercontent.com/jnjomnsn/itesm-tol-tc3022/A01366501/A01366501/ex%C3%A1menes/parcial1/screenshots/img_3.png)
 
-![alt text](https://raw.githubusercontent.com/jnjomnsn/itesm-tol-tc3022/A01366501/A01366501/ex%C3%A1menes/parcial1/screenshots/img_4.JPG)
+![alt text](https://raw.githubusercontent.com/jnjomnsn/itesm-tol-tc3022/A01366501/A01366501/ex%C3%A1menes/parcial1/screenshots/img_4.jpg)
 
 ## Algoritmo de reducción y duplicación
 
 El algoritmo para crear los fractales dentro de cara lado de la pirámide es el de reducción y duplicación, un agoritmo "tail-recursion":
+
 
 1. Calcule las nuevas coordenadas del medio, izquierda y derecha de los 3 triángulos hijos usando los valores dados y dividiéndolos entre 2.
 ```
@@ -45,7 +46,7 @@ void createTriangleSide(float lowLeftX, float lowLeftY, float lowRightX, float l
 }
 ```
 
-2. Repita el paso 1 hasta que el valor k del niño sea el mismo que el k global dado.
+2. Repita el paso 1 hasta que el valor k del triángulo hijo sea el mismo que el k global dado.
 ```
 void createTriangleSide(float lowLeftX, float lowLeftY, float lowRightX, float lowRightY, float topX, float topY, int currentK, int childK) {
   if (childK < currentK) {
@@ -64,7 +65,7 @@ void createTriangleSide(float lowLeftX, float lowLeftY, float lowRightX, float l
 }
 ```
 
-3. Una vez que la k del niño es la misma que la k dada, dibuja un triángulo en las coordenadas del niño.
+3. Una vez que la k del triángulo hijo es la misma que la k dada, dibuja un triángulo en las coordenadas del triángulo hijo.
 ```
 void createTriangleSide(float lowLeftX, float lowLeftY, float lowRightX, float lowRightY, float topX, float topY, int currentK, int childK) {
   if (childK < currentK) {
@@ -93,6 +94,7 @@ void createTriangleSide(float lowLeftX, float lowLeftY, float lowRightX, float l
 }
 ```
 
+
 ### Cambios de color
 
 Para cambiar el color de la pirámide, se uso una función de lerping con una función de sin 
@@ -101,6 +103,7 @@ para la transición fluida de colores azul y morado.
 ```
 fill(lerpColor(color(0,191,255), color(138,43,226), (sin(colorAngle += colorSwapSpeed) + 1.0) / 2.0));
 ```
+
 
 ## Cambio de nivel de fractales
 
@@ -118,6 +121,7 @@ if (timeElapsed >= 1.0) {
    startTime = millis();
 }
 ```
+
 
 ## Cámara Orbital
 
@@ -143,11 +147,12 @@ void draw(){
 }
 ```
 
+
 ## Resultado
 
 Este fue el resultado de la implementación de la pirámide, con instrucciones desplegadas en el canvas.
 
-![alt text](https://raw.githubusercontent.com/jnjomnsn/itesm-tol-tc3022/A01366501/A01366501/ex%C3%A1menes/parcial1/screenshots/img1.JPG)
+![alt text](https://raw.githubusercontent.com/jnjomnsn/itesm-tol-tc3022/A01366501/A01366501/ex%C3%A1menes/parcial1/screenshots/img_1.JPG)
 
 
 ## Estado del nivel del triángulo y del número de fractales por cara.
