@@ -185,7 +185,7 @@ P = 3 * (3/2) ^ k
 
 Y el programa lo despliega en forma decimal en la esquina superior izquierda:
 
-![alt text](https://raw.githubusercontent.com/jnjomnsn/itesm-tol-tc3022/A01366501/A01366501/ex%C3%A1menes/parcial1/screenshots/img_5.JPG)
+![alt text](https://raw.githubusercontent.com/jnjomnsn/itesm-tol-tc3022/A01366501/A01366501/ex%C3%A1menes/parcial1/screenshots/img_5.jpg)
 
 
 ## Autores
