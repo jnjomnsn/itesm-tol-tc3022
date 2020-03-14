@@ -1,8 +1,8 @@
 # Exámen Primer Parcial
 
-Pirámide de Sierpiński.
+Pirámide de Sierpiński en Processing.
 
-![alt text]
+![alt text] (https://www.researchgate.net/profile/Anita_Dani/publication/1955966/figure/fig1/AS:279735000158208@1443705429075/Sierpinski-gasket-and-pyramid.png)
 
 ## Resumen
 
@@ -143,6 +143,7 @@ void draw(){
 
 Este fue el resultado de la implementación de la pirámide, con instrucciones desplegadas en el canvas.
 
+![alt text] (https://raw.githubusercontent.com/jnjomnsn/itesm-tol-tc3022/A01366501/A01366501/ex%C3%A1menes/parcial1/screenshots/img1.JPG)
 
 
 ## Estado del nivel del triángulo y del número de fractales por cara.
@@ -152,7 +153,13 @@ el número de triángulos en cada cara de la pirámide.
 
 -> La variable n está dada por n = (3^k) − 1
 
-![alt text](https://i.stack.imgur.com/7bx9C.png)
+![alt text] (https://i.stack.imgur.com/7bx9C.png)
+
+
+-> Esos valores se despliegan en la esquina superior izquiera y cambian cada segundo.
+
+![alt text] (https://raw.githubusercontent.com/jnjomnsn/itesm-tol-tc3022/A01366501/A01366501/ex%C3%A1menes/parcial1/screenshots/img_2.JPG)
+
 
 ## Autores
 
