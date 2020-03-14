@@ -169,6 +169,24 @@ el número de triángulos en cada cara de la pirámide.
 
 ![alt text](https://raw.githubusercontent.com/jnjomnsn/itesm-tol-tc3022/A01366501/A01366501/ex%C3%A1menes/parcial1/screenshots/img_2.JPG)
 
+## Extras, el área de cada cara de la pirámide
+
+El área de un triángulo (cara de la pirámide) está dada por la fórmula:
+
+```
+A = 3/4 ^ k 
+```
+
+El perímetro de un triángulo (cara de la pirámide) está dada por la fórmula:
+
+```
+P = 3 * (3/2) ^ k
+```
+
+Y el programa lo despliega en forma decimal en la esquina superior izquierda:
+
+![alt text](https://raw.githubusercontent.com/jnjomnsn/itesm-tol-tc3022/A01366501/A01366501/ex%C3%A1menes/parcial1/screenshots/img_5.JPG)
+
 
 ## Autores
 
@@ -180,4 +198,5 @@ el número de triángulos en cada cara de la pirámide.
 * https://en.wikipedia.org/wiki/Sierpi%C5%84ski_triangle#Shrinking_and_duplication
 * http://www.fractal-explorer.com/sierpinskitriangle.html
 * https://math.stackexchange.com/questions/1855106/sierpinski-triangle-formula-how-to-take-into-account-for-0th-power
+* http://www.dma.fi.upm.es/recursos/aplicaciones/geometria_fractal/practicas/fractales_clasicos/sierpinski.html
 
