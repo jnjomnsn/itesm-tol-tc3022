@@ -1,8 +1,8 @@
 # Exámen Primer Parcial
 
-Pirámide de Sierpiński.
+Pirámide de Sierpiński en Processing.
 
-![alt text]
+![alt text](https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Sierpinski_triangle_evolution.svg/1920px-Sierpinski_triangle_evolution.svg.png)
 
 ## Resumen
 
@@ -18,6 +18,10 @@ Pasos para instalar la librería en Processing:
 ```
 Sketch -> Import Library -> Buscar: PeasyCam -> Install
 ```
+
+![alt text](https://raw.githubusercontent.com/jnjomnsn/itesm-tol-tc3022/A01366501/A01366501/ex%C3%A1menes/parcial1/screenshots/img_3.JPG)
+
+![alt text](https://raw.githubusercontent.com/jnjomnsn/itesm-tol-tc3022/A01366501/A01366501/ex%C3%A1menes/parcial1/screenshots/img_4.JPG)
 
 ## Algoritmo de reducción y duplicación
 
@@ -143,6 +147,7 @@ void draw(){
 
 Este fue el resultado de la implementación de la pirámide, con instrucciones desplegadas en el canvas.
 
+![alt text](https://raw.githubusercontent.com/jnjomnsn/itesm-tol-tc3022/A01366501/A01366501/ex%C3%A1menes/parcial1/screenshots/img1.JPG)
 
 
 ## Estado del nivel del triángulo y del número de fractales por cara.
@@ -153,6 +158,12 @@ el número de triángulos en cada cara de la pirámide.
 -> La variable n está dada por n = (3^k) − 1
 
 ![alt text](https://i.stack.imgur.com/7bx9C.png)
+
+
+-> Esos valores se despliegan en la esquina superior izquiera y cambian cada segundo.
+
+![alt text](https://raw.githubusercontent.com/jnjomnsn/itesm-tol-tc3022/A01366501/A01366501/ex%C3%A1menes/parcial1/screenshots/img_2.JPG)
+
 
 ## Autores
 
