@@ -23,7 +23,8 @@ Sketch -> Import Library -> Buscar: PeasyCam -> Install
 
 ![alt text](https://raw.githubusercontent.com/jnjomnsn/itesm-tol-tc3022/A01366501/A01366501/ex%C3%A1menes/parcial1/screenshots/img_4.jpg)
 
-## Algoritmo de reducción y duplicación
+
+## Implementación del algoritmo de reducción y duplicación
 
 El algoritmo para crear los fractales dentro de cara lado de la pirámide es el de reducción y duplicación, un agoritmo "tail-recursion":
 
@@ -93,6 +94,10 @@ void createTriangleSide(float lowLeftX, float lowLeftY, float lowRightX, float l
   }
 }
 ```
+
+Este algoritmo para crear un triángulo de recursión puede verse como un diagrama de llamada de funciones, tal como el que se muestra en la siguiente figura:
+
+![alt text](https://runestone.academy/runestone/books/published/thinkcspy/_images/stCallTree.png)
 
 
 ### Cambios de color
@@ -199,4 +204,5 @@ Y el programa lo despliega en forma decimal en la esquina superior izquierda:
 * http://www.fractal-explorer.com/sierpinskitriangle.html
 * https://math.stackexchange.com/questions/1855106/sierpinski-triangle-formula-how-to-take-into-account-for-0th-power
 * http://www.dma.fi.upm.es/recursos/aplicaciones/geometria_fractal/practicas/fractales_clasicos/sierpinski.html
+* https://sites.google.com/a/lps.k12.co.us/ahs-intro-to-computer-science/home/recursion/5-sierpinski-triangle
 
