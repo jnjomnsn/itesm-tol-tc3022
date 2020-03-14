@@ -27,7 +27,7 @@ Sketch -> Import Library -> Buscar: PeasyCam -> Install
 ## Implementación del algoritmo de reducción y duplicación
 
 El algoritmo para crear los fractales dentro de cara lado de la pirámide es el de reducción y duplicación, un agoritmo "tail-recursion":
-
+(El algoritmo se encontró en: https://en.wikipedia.org/wiki/Sierpi%C5%84ski_triangle#Shrinking_and_duplication)
 
 1. Calcule las nuevas coordenadas del medio, izquierda y derecha de los 3 triángulos hijos usando los valores dados y dividiéndolos entre 2.
 ```
