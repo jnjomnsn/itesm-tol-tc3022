@@ -176,13 +176,13 @@ el número de triángulos en cada cara de la pirámide.
 
 ## Extras, el área de cada cara de la pirámide
 
-El área de un triángulo (cara de la pirámide) está dada por la fórmula:
+El área está dada por la fórmula:
 
 ```
 A = 3/4 ^ k 
 ```
 
-El perímetro de un triángulo (cara de la pirámide) está dada por la fórmula:
+El perímetro está dado por la fórmula:
 
 ```
 P = 3 * (3/2) ^ k
