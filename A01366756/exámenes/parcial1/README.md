@@ -7,13 +7,13 @@ El código está dividido en varios módulos que en su conjunto logran el objeti
 
 ### Pasos tomados para crear una cara de la Pirámide de triángulos de Sierpinski
 1. Tamaño y posicionamiento del primer triangulo.
-    - Para este caso se creó la función "trianguloDeSierpinski", que recibe cuatro parámetros. Los primeros tres parámetros representan el centro del tiángulo y el último la rotación que se le dará sobre el eje Y, de tal forma que se pueda reutilizar para cada cara de la figura. 
+    - Para este caso se creó la función "trianguloDeSierpinski", que recibe cuatro parámetros. Los primeros tres parámetros representan el centro del triángulo y el último la rotación que se le dará sobre el eje Y, de tal forma que se pueda reutilizar para cada cara de la figura. 
     `Nota: para no rotar la figura, mandar cualquier valor negativo en el último parámetro.` 
 
     - El primer reto que se presento fue el calcular de forma automática el tamaño y, por lo tanto, las coordenadas de los puntos de el triángulo dentro del plano. Para esto se usaron los parámetros como la posición del centro del triángulo que se quiere dibujar.
     
     - Una vez obtenida esa información se traslada todo el plano a la posición deseada, porque es más fácil manipular una figura que se encuentra en el centro del plano ya que cualquier transformación tiene menos efectos secundarios.
-        - Es importante resaltar que es aquí donde se utilizan las funciones que controlan la rotación y escalamiento de las figuras, para dar la sensación de continuo giro sobre su propio eje y la senzación de zoom.
+        - Es importante resaltar que es aquí donde se utilizan las funciones que controlan la rotación y escalamiento de las figuras, para dar la sensación de giro continuo sobre su propio eje y la senzación de zoom.
         - Esta acción se realiza en este lugar para que toda la figura se vea afectada por los cambios que se realicen por el usuario y no se pierda el efecto de la traslación inicial.
 
     - Como ya se había mencionado el punto dado sería el centro del triángulo, entonces la coordenada en el eje "y" divida a la mitad representará la altura de nuestro triángulo y utilizando las razones trigonométricas se obtiene la medida (y las coordenadas "x" y "y") de la base de nuestro triángulo para crear un triángulo equilatero.
@@ -25,7 +25,7 @@ El código está dividido en varios módulos que en su conjunto logran el objeti
     - Por último se crean los objetos con las coordenadas correspondientes a cada vértice del triángulo y se hace la primera llamada a la función recursiva que crea los triángulos.
 
 2. Creación de los triángulos que conforman un triángulo de Sierpisnki
-    - El segundo reto fue crear cada triángulo que conforma un triángulo de Sierpinski. Como los fractales son de natrualeza recursiva, entonces se utiliza una función recursiva llamada "triangulo", que en cada iteración calcula los nuevos puntos de los tres triángulos más pequeños que conforman el triángulo que recibe la función, hasta que se requiere imprimirlos.
+    - El segundo reto fue crear cada triángulo que conforma un triángulo de Sierpinski. Como los fractales son de natrualeza recursiva, entonces se utiliza una función recursiva llamada "triangulo", que en cada iteración calcula los nuevos puntos de los tres triángulos más pequeños que conforman el triángulo que recibe la función, hasta que se requiera imprimirlos.
 
     - La función recibe 4 parámetros, el primero es el nivel o el número de recursiones que tendrá la función, los otros tres son del tipo "Punto" y contienen las coordenadas del triángulo a dibujar.
 
@@ -49,7 +49,7 @@ El código está dividido en varios módulos que en su conjunto logran el objeti
 
 ### Extras
 - Al usuario se le presenta un set de instrucciones para manipular el programa ya funcionando.
-    - Este set de instrucciones puede ocultarse o mostrarse con la tecla 'm' o 'M'.
+    - Este set de instrucciones puede ocultarse o mostrarse con las teclas 'm' o 'M'.
 - La primera caracteristica es la posibilidad de cambiar el número de fractales con las teclas "+" o "-".
 - También el programa está diseñado para funcionar con las dimensiones de la pantalla, por lo tanto se puede agrandar la pantalla y la pirámide lo hará con ella.
 - El programa también tiene la función de cambiar el color de la figura cuando se de click dentro de la pantalla, como se explicó con anterioridad.
