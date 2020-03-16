@@ -63,7 +63,8 @@ void menu(){
         +"\t    Presionar 'T' o 't' para mostrar el Triángulo\n"
         +"\t    Presionar 'P' o 'p' para mostrar la Pirámide\n"
         +"\t    Presionar 'M' o 'm' para esconder el Menú\n"
-        +"\t    Arrastrar el mouse clickeado para rotar\n", 10, 30);
+        +"\t    Arrastrar el mouse clickeado para rotar\n"
+        +"\t    Usar la rueda del mouse para hacer zoom\n", 10, 30);
     //escoger que imagen se requiere mostrar
     switch (opcionDeFigura) {
         case 1 :
@@ -151,7 +152,7 @@ para hacer los tres triangulos que forman el triangulo más grande.
 */
 void triangulo(int nivel, Punto punto1, Punto punto2, Punto punto3){
     //si el nivel aún no es 0 hacer las llamadas recursivas
-    if(nivel<=0){
+    if(nivel==0){
         //dibujar el triangulo recibido
         fill(r, g, b);
         beginShape();
@@ -164,9 +165,13 @@ void triangulo(int nivel, Punto punto1, Punto punto2, Punto punto3){
         Punto nuevoPunto1 = new Punto((punto2.x+punto1.x)/2.0,(punto2.y+punto1.y)/2.0);
         Punto nuevoPunto2 = new Punto((punto3.x+punto2.x)/2.0,(punto3.y+punto2.y)/2.0);
         Punto nuevoPunto3 = new Punto((punto1.x+punto3.x)/2.0,(punto1.y+punto3.y)/2.0);
-        
+        /*hacer las llamadas recursivas, con las combinaciones de los puntos
+        que resultan en los triángulos que se buscan */
+        //centro
         triangulo(nivel-1, punto1, nuevoPunto1, nuevoPunto3);
+        //izquierda
         triangulo(nivel-1, punto2, nuevoPunto2, nuevoPunto1);
+        //derecha
         triangulo(nivel-1, punto3, nuevoPunto3, nuevoPunto2);
     }
 }
@@ -253,8 +258,8 @@ void keyPressed() {
         opcionDeFigura =2;
     if (key == 'm' || key == 'M')
         mostrarMenu = !mostrarMenu;
-    if (key == '+' && numFractales<6)
+    if (key == '+' && numFractales<5)
         numFractales++;
-    if (key == '-' && numFractales>1)
+    if (key == '-' && numFractales>=1)
         numFractales--;
 }
