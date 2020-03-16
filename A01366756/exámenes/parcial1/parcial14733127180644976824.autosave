@@ -1,0 +1,6 @@
+/*
+Es un fractal que se construye de forma recursiva a partir de un 
+triángulo cuyos lados se dividen por su punto medio. 
+Con estos nuevos puntos, y los anteriores, se construyen nuevos triángulos 
+semejantes al anterior.
+*/
