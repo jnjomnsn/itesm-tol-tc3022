@@ -49,7 +49,7 @@ El código está dividido en varios módulos que en su conjunto logran el objeti
 
 ### Extras
 - Al usuario se le presenta un set de instrucciones para manipular el programa ya funcionando.
-    - Este set de isntrucciones puede ocultarse o mostrarse con la tecla 'm' o 'M'.
+    - Este set de instrucciones puede ocultarse o mostrarse con la tecla 'm' o 'M'.
 - La primera caracteristica es la posibilidad de cambiar el número de fractales con las teclas "+" o "-".
 - También el programa está diseñado para funcionar con las dimensiones de la pantalla, por lo tanto se puede agrandar la pantalla y la pirámide lo hará con ella.
 - El programa también tiene la función de cambiar el color de la figura cuando se de click dentro de la pantalla, como se explicó con anterioridad.
