@@ -22,10 +22,9 @@ false = no mostrar el menu
 */
 boolean mostrarMenu = true;
 
-
 /*
 Clase para guardar y manipular con mayor facilidad las coordenadas 
-de los puntos de los triangulos
+de los puntos de los triángulos
 */
 public class Punto {
     float x;
@@ -47,6 +46,7 @@ void draw(){
     noStroke();
     lights();
 }
+
 /*
 Función que ayuda a desplegar el menú con las instucciones cuando es 
 requerido, además manda a llamar las funciones que se requieren cuando 
@@ -98,7 +98,7 @@ grados que se quiere rotar cada triangulo.
 
 En caso de requerir que no se rote el triangulo para crear la priamide,
 llamar la función con un -1, o cualquier número negativo, en el último 
-parametro.
+parámetro.
 */
 void trianguloDeSierpinski(int x, int y, int z, int grados){
     /*
@@ -143,8 +143,8 @@ void trianguloDeSierpinski(int x, int y, int z, int grados){
 /*
 Funcion recursiva para dibujar el triangulo de Sierpinski.
 
-El primer parametro es el que decide el nivel del triangulo
-y los parametros siguientes dicen los puntos iniciales de cada triangulo.
+El primer parámetro es el que decide el nivel del triangulo
+y los parámetros siguientes dicen los puntos iniciales de cada triangulo.
 
 La funcion hace tres llamadas recursivas mientras el nivel no sea igual a 0,
 para hacer los tres triangulos que forman el triangulo más grande.
@@ -175,7 +175,7 @@ void triangulo(int nivel, Punto punto1, Punto punto2, Punto punto3){
 Función para hacer rotar cualquier imagen o figura en la que se mande
 a llamar y que se encuentre en el centro del plano. 
 
-El parametro sirve para elegir la direccion de la rotación en el eje x.
+El parámetro sirve para elegir la direccion de la rotación en el eje x.
 
 Necesita de las variables globales: 
     float counterForRotationX=0, counterForRotationY=0;
@@ -230,7 +230,10 @@ void mouseWheel(MouseEvent event) {
 
 }
 
-
+/*
+Función que reconoce cuando el mouse ha sido clickeado y ayuda modificar
+las variables que controlan el color de la figura que se muestra.
+*/
 void mouseClicked() {
     int lower = 1;
     int upper = 255;
@@ -239,6 +242,10 @@ void mouseClicked() {
     b = (float)generator.nextDouble(lower,upper);
 }
 
+/*
+Función que ayuda a cambiar las variables globales que controlan lo que
+despliega el menú de instrucciones.
+*/
 void keyPressed() { 
     if (key == 't' || key == 'T')
         opcionDeFigura =1;
