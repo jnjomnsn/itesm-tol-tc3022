@@ -1,12 +1,11 @@
 # Primer examen parcial
-## Graficas computacionales
 ## Pirámide de triángulos de Sierpinski
 En este documento se redacta el proceso que lleva a la construcción de la pirámide.
 
 ### Resumen
 El código está dividido en varios módulos que en su conjunto logran el objetivo del proyecto. Dentro de las funciones importantes se encuentran: la función para inicializar los triángulos, la función para crear las cuatro caras de la pirámide y la función que crea cada fractal de la figura de un triángulo de Sierpinski de forma recursiva.
 
-#### Pasos tomados para crear una cara de la Pirámide de triángulos de Sierpinski
+### Pasos tomados para crear una cara de la Pirámide de triángulos de Sierpinski
 1. Tamaño y posicionamiento del primer triangulo.
     - Para este caso se creó la función "trianguloDeSierpinski", que recibe cuatro parámetros. Los primeros tres parámetros representan el centro del tiángulo y el último la rotación que se le dará sobre el eje Y, de tal forma que se pueda reutilizar para cada cara de la figura. 
     `Nota: para no rotar la figura, mandar cualquier valor negativo en el último parámetro.` 
@@ -40,7 +39,7 @@ El código está dividido en varios módulos que en su conjunto logran el objeti
 3. Al finalizar se tendrá un triángulo de Siepinski del nivel que se haya solicitado
     - En este caso se decidió utilizar la función "keyPressed()" para poder cambiar el número de fractales a voluntad mediante las teclas "+" o "-", para que sea más interactivo y entendible el funcionamiento del programa.
 
-#### Pasos tomados para crear la Pirámide de triángulos de Sierpinski
+### Pasos tomados para crear la Pirámide de triángulos de Sierpinski
 
 4. Por último, para crear la piramide
     - Este fue el paso más sencillo pues todo lo anterior fue pensado para que fuera útil al crear la pirámide, las funciones ya estaban listas para ser llamadas con la información correcta y la pirámide se crearía sin problemas.
@@ -48,7 +47,7 @@ El código está dividido en varios módulos que en su conjunto logran el objeti
     - La función no recibe ningún parámetro y tampoco devuelve nada, su única función es hacer cuatro iteraciones de la función "trianguloDeSierpinski" con el único cambio en el último parámetro para poner las caras en los cuadrantes correspondientes.
         - Cabe destacar que en cada llamada se hace un pushMatrix() y un popMatrix() para que las transformaciones realizadas dentro de una llamada no afecten a las de otra.
 
-#### Extras
+### Extras
 - Al usuario se le presenta un set de instrucciones para manipular el programa ya funcionando.
     - Este set de isntrucciones puede ocultarse o mostrarse con la tecla 'm' o 'M'.
 - La primera caracteristica es la posibilidad de cambiar el número de fractales con las teclas "+" o "-".
