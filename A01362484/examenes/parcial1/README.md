@@ -48,7 +48,7 @@ Cada llamada de la función a excepción de la ultima cuenta con lo siguiente:
 Para la ultima llamada de la función “triangulo” no se utiliza el primer translate, pues su posición inicial es la que se uso como base para unir los tres triángulos anteriores.
 Al inicio se trasladan todos los triángulos a una posición mas centrada en pantalla y se hace uso del método scale que nos permitirá hacer zoom a la pirámide, así como el método rotateY lo que hará que la pirámide este girando en el eje Y.
 
-Al ultimo se llama a la funcion "base" la cual coloca una base real para formar la piramide
+Al último se llama a la funcion "base" la cual coloca una base real para formar la piramide
 
 
 ## Zoom y giro de la Piramide
