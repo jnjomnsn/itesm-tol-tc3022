@@ -55,4 +55,4 @@ Al último se llama a la funcion "base" la cual coloca una base real para formar
 
 Para el zoom se hizo uso de la función “mouseWheel” y una variable “e” la cual obtendrá un valor positivo o negativo dependiendo de si la rueda del mouse se mueve hacia adelante o hacia atrás. Se colocaron dos condiciones en las cuales si el numero registrado por “e” era positivo se le aumento 0.02 a la variable escala y si es negativo se le resta, resultando en la modificación de la escala, lo que nos permite hacer el zoom.
 
-Para lograr que la pirámide gire se usó el método rotateY al cual se le dio la variable Angulo, la cual esta conformada por una dirección en este caso igual a 1 y una velocidad, resultando en un giro en el eje Y hacia la izquierda.s
+Para lograr que la pirámide gire se usó el método rotateY al cual se le dio la variable Angulo, la cual esta conformada por una dirección en este caso igual a 1 y una velocidad, resultando en un giro en el eje Y hacia la izquierda.
