@@ -1,7 +1,7 @@
 # Examen Parcial 1
 
 El objetivo de este programa es dibujar una piramide cuadrangular en la que cada cara triangular esté presente el triangulo fractal de Sierpinski.
-Para lograr esto, el programa está dividido en dos secciones. Una para la creacion de la piramide y otra par hacer el triangulo de Sierpinski.
+Para lograr esto, el programa está dividido en dos secciones. Una para la creacion de la piramide y otra para hacer el triangulo de Sierpinski.
 
 # Variables principales
 El valor de las siguientes variables son las unicas que pueden ser modificadas para la cunstruccion de la piramide y del triangulo:
