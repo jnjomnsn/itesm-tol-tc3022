@@ -6,7 +6,7 @@ Para lograr esto, el programa está dividido en dos secciones. Una para la creac
 # Variables principales
 El valor de las siguientes variables son las unicas que pueden ser modificadas para la cunstruccion de la piramide y del triangulo:
 
-* length_arist: En esta variable se define el largo de las aristas de la piramide. Dado que la piramide es cuadrangular equilatera, todos las aristas miden lo mismo. Por esto solo se tienen que defiir una vez.
+* length_arist: En esta variable se define el largo de las aristas de la piramide. Dado que la piramide es cuadrangular equilatera, todos las aristas miden lo mismo. Por esto solo se tienen que definir una vez.
 * nivel: Nivel maximo para la construccion del triangulo de Sierpinski.
 
 El valor de las siguientes variables son generadas automaticamente por el programa en base a los valores de las variables anteriores:
@@ -17,7 +17,7 @@ El valor de las siguientes variables son generadas automaticamente por el progra
 * p2_Y: Ubicacion del punto inicial dos en Y. Su valor es 0.
 
 # Triangulo de Sierpinski
-Para dibujar un triangulo necesitamos recivir dos puntos(p1, p2) para buscar el punto medio entre estos y buscar el tercer punto (p3) en el cual si se unen forma un triangulo equilatero. Para crear el fractal debemos buscar los puntos medios entre cada arista (d1, d2, d3) para formar un total de 4 triangulos. Esto se hace de manera recursiva en los 3 triangulos laterales hasta cumplir los nieveles necesarios (level). Una vez que se llega al ultimo nivel, el triangulo (p1, p2, p3) es pintado de color negro.
+Para dibujar un triangulo necesitamos recivir dos puntos(p1, p2) para buscar el punto medio entre estos y buscar el tercer punto (p3) en el cual si se unen forma un triangulo equilatero. Para crear el fractal debemos buscar los puntos medios entre cada arista (d1, d2, d3) para formar un total de 4 triangulos. Esto se hace de manera recursiva en los 3 triangulos laterales hasta cumplir los nieveles necesarios (level). Una vez que se llega al ultimo nivel, el triangulo (p1, p2, p3) es pintado de color negro. El primer triangulo es pintado de blanco para que se distingan los triangulos invertidos de cadad nivel.
 
 # Piramide
 Para dibujar una piramide primero debemos ubicar el origen ya que apartir de este empezaremos. La logica es dibujar cada cara triangular para formar la piramide.
