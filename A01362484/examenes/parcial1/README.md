@@ -1,4 +1,4 @@
-# Exemen parcial 1 triángulo de Sierpinski
+# Examen parcial 1 triángulo de Sierpinski
 
 El codigo crea cuatro triángulos de Sierpinski que se usan como caras para formar una piramide con base cuadrada.
 
