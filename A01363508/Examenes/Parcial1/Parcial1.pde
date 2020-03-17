@@ -18,17 +18,20 @@ void setup() {
  
 void draw() {
   background(0);
+  //Creacion de la piramide
   pyramid();
   //Retrasar la creacion de todos los triangulos
   try {
+  //evitar que se creen mas instancias de las necesarias
     if(n < 6) {
        Thread.sleep(100);
+       //Aumentar las iteraciones
        if(n != 6) n++;}
        }catch(InterruptedException e){}
 }
 
+//Funcion para escalar mediante la rueda de el mouse
 void mouseWheel(MouseEvent event) { 
-//Funcion de escalamiento mediante la rueda del mouse
 float e = event.getCount();
 scala += e *.01 ;
 }
