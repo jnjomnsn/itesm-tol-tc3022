@@ -1,6 +1,6 @@
-import peasy.*;
-PeasyCam cam;
-
+float escala = .5;
+float x = 0;
+float i = 0;
 void setup()
 {
   size(800,800,P3D);
@@ -12,11 +12,14 @@ void setup()
 
 void draw()
 {
-  float i = 0;
+  //sierpinsky();   //funcion manual implementada a un inicio
+  pushMatrix();
+  translate(400,400,0);
   rotateY(i);
-  //sierpinsky();                             //funcion manual implementada a un inicio
+  scale(escala);
   drawSierpinsky(0,700,400,0,800,700,5);      //funcion que dibuja la cara del triangulo de forma recursiva para un nivel n=5
-  drawPyramid();     //funcion que pinta la piramide en 3d
+  popMatrix();
+  //drawPyramid();     //funcion que pinta la piramide en 3d
   i = i + 0.01;
   
 }
@@ -108,4 +111,10 @@ void drawPyramid()
   vertex(-100,-100,-100);
   vertex(0,0,100);
   endShape();
+}
+
+void mouseWheel(MouseEvent event) { 
+//Funcion de escalamiento mediante la rueda del mouse
+float x = event.getCount();
+escala += x *.01 ;
 }
