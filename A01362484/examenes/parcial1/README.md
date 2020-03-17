@@ -23,7 +23,7 @@ A continuación, se divide la variable lado a la mitad para obtener la mitad de 
 2.	Si el numero de niveles o iteraciones es mayor a 0 pero menor a 6 se hace una llamada recursiva a la función triangulo, a la cual se le envían la medida del lado y los niveles restantes, además de las coordenadas de cada vértice en donde se va a dibujar un triángulo nuevo.
 
 
-##Piramide
+###Piramide
 
 En la función draw se llama la función “triangulo” 4 veces, esto con el fin de generar 4 triángulos de Sierpinski.
 Cada llamada de la función a excepción de la ultima cuenta con lo siguiente:
@@ -34,7 +34,7 @@ Para la ultima llamada de la función “triangulo” no se utiliza el primer tr
 Al inicio se trasladan todos los triángulos a una posición mas centrada en pantalla y se hace uso del método scale que nos permitirá hacer zoom a la pirámide, así como el método rotateY lo que hará que la pirámide este girando en el eje Y.
 
 
-##Zoom y giro de la Piramide
+####Zoom y giro de la Piramide
 
 Para el zoom se hizo uso de la función “mouseWheel” y una variable “e” la cual obtendrá un valor positivo o negativo dependiendo de si la rueda del mouse se mueve hacia adelante o hacia atrás. Se colocaron dos condiciones en las cuales si el numero registrado por “e” era positivo se le aumento 0.02 a la variable escala y si es negativo se le resta, resultando en la modificación de la escala, lo que nos permite hacer el zoom.
 
