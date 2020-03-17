@@ -1,0 +1,41 @@
+void setup(){
+  size(400,400);
+ 
+}
+void draw(){
+  stroke(0);
+  line(20,300,200,20);
+  line(200,20,380,300);
+  line(20,300,380,300);
+  stroke(255,0,0);
+  fill(255);
+  circle(200,20,40);
+  fill(0);
+  textSize(25);
+  text("a",200-5,20+10);
+  fill(255);
+  circle(110,160,40);
+  fill(0);
+  textSize(25);
+  text("b",110-5,160+10);
+  fill(255);
+  circle(300,160,40);
+  fill(0);
+  textSize(25);
+  text("c",300-5,160+10);
+   fill(255);
+  circle(20,300,40);
+  fill(0);
+  textSize(25);
+  text("d",20-5,300+10);
+  fill(255);
+  circle(200,300,40);
+  fill(0);
+  textSize(25);
+  text("e",200-5,300+10);
+   fill(255);
+  circle(380,300,40);
+  fill(0);
+  textSize(25);
+  text("f",380-5,300+10);
+}
