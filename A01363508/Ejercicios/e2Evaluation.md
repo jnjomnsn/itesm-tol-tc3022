@@ -1,4 +1,4 @@
-# A01363508 - Ejercicio 3: Transformaciones
+# A01363508 - Ejercicio 2: Paint
 
 ## **Calificación**: 0
 
