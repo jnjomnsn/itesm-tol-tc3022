@@ -1,4 +1,4 @@
-# A01362927 - Ejercicio 3: Transformaciones
+# A01362927 - Ejercicio 2: Paint
 
 ## **Calificación**: 80
 
