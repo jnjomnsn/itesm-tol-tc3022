@@ -1,0 +1,152 @@
+import java.util.Collections;//libreria utilizada para ordenar la lista de objetos
+//Tabla para manipular los datos del archivo
+Table table;
+//Lista de arreglo para almacenar la información del archivo
+ArrayList<Informacion> infoList = new ArrayList<Informacion>();
+//Suma total de los valores en al tabla
+int totalDeValores = 0;
+
+/*
+variable para seleccionar la figura a mostrar 
+1 gráfica de barras
+2 gráfica de pastel
+*/
+int opcionDeFigura;
+
+
+public class Informacion implements Comparable<Informacion>{
+    String id;
+    int valor;
+    color colorDeFigura;
+    boolean resaltar;
+
+	public String getId() {
+		return this.id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public int getValor() {
+		return this.valor;
+	}
+
+	public void setValor(int valor) {
+		this.valor = valor;
+	}
+
+	public boolean isResaltar() {
+		return this.resaltar;
+	}
+
+	public void setResaltar(boolean resaltar) {
+		this.resaltar = resaltar;
+	}
+
+    public Informacion (String id,int valor, String resaltar, color colorDeFigura) {
+        this.id = id;
+        this.valor = valor;
+        if(resaltar.equals("resaltar"))
+            this.resaltar = true;
+        else
+            this.resaltar = false;
+        this.colorDeFigura = colorDeFigura;
+    }
+
+    @Override     
+    public int compareTo(Informacion info) {          
+        return (this.getValor() > info.getValor() ? -1 : 
+        (this.getValor() == info.getValor() ? 0 : 1));
+    }
+
+    @Override     
+    public String toString() {         
+        return " Id: " + this.id + ", Valor: " + this.valor;     
+    } 
+}
+
+void setup(){
+    loadInfo();
+    size(600,600,P3D);
+}
+
+void draw(){
+    background(100);
+    pieChart(width/2,height/2,0,400);
+    //menu();
+    noStroke();
+    lights();
+}
+
+void loadInfo(){
+
+    table = loadTable("mammals.csv", "header");
+
+    println(table.getRowCount() + " total rows in table");
+
+    float aumentoColor = map(1, 0, table.getRowCount()*table.getRowCount(), 0, 1)/3;
+    println("aumanto Color "+aumentoColor);
+    
+    for (TableRow row : table.rows()) {
+        color from = color(#7CE0F0);
+        color to = color(#F07C95);
+        color colorDeFigura = lerpColor(from, to, aumentoColor/2);
+        Informacion info = new Informacion(row.getString("id"),row.getInt("valor"),row.getString("resaltar"),colorDeFigura);
+        totalDeValores += row.getInt("valor");
+        infoList.add(info);
+        aumentoColor += aumentoColor;
+    }
+
+    Collections.sort(infoList);
+
+    for (Informacion infoFor : infoList) {
+        if(infoFor.resaltar)
+            println("resaltar   :\t" + infoFor);
+        else
+            println("no resaltar:\t" + infoFor);
+    }
+}
+
+void pieChart(int x, int y, int z, float diameter) {
+    //trasladar la figura al centro que se requiere
+    translate(x, y, z);
+    //rotateZ(radians(-90));
+    float halfAngle = radians(-90);
+    float lastAngle = radians(-90);
+    float desplazamiento = diameter/10;
+
+    for (Informacion info : infoList) {
+        float grados = map(info.valor, 0, totalDeValores, 0, 360);
+        fill(info.colorDeFigura);
+
+        if (info.isResaltar())
+            stroke(255);
+        else
+            noStroke();
+        
+        halfAngle = lastAngle + radians(grados/2);
+
+        arc(0, 0, diameter, diameter, lastAngle, lastAngle+radians(grados));
+        lastAngle += radians(grados);
+
+        float radio = diameter/2;
+        float xLabel = (desplazamiento + radio) * cos(halfAngle); 
+        float yLabel = (desplazamiento + radio) * sin(halfAngle);
+
+        textAlign(CENTER); 
+        
+        text("Section " + info.id, xLabel, yLabel);
+    }
+}
+
+/*
+Función que ayuda a cambiar las variables globales que controlan lo que
+se despliega en pantalla
+*/
+void keyPressed() { 
+    if (key == 'b' || key == 'B')
+        opcionDeFigura =1;
+    if (key == 'p' || key == 'P')
+        opcionDeFigura =2;
+}
