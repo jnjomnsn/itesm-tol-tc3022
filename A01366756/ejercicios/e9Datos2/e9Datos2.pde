@@ -112,7 +112,7 @@ void loadInfo(String archivo){
     table = loadTable(archivo+".csv", "header");
     
     for (TableRow row : table.rows()) {
-        Informacion info = new Informacion(row.getString("id"),row.getInt("valor"),row.getString("resaltar"));
+        Informacion info = new Informacion(row.getString(0),row.getInt(1),row.getString(2));
         if (archivo.equals("graficaBarras")) {
             totalDeValoresBarras += row.getInt("valor");
             listBarras.add(info);
@@ -166,13 +166,22 @@ void columnChart(){
         float newHeight = (height/2.5)*.8;
         float maxValorEscala = map(maxValorColumna, 0, maxValor,0, newHeight);
         float espaciadoY = (newHeight - maxValorEscala)/2;
-        float espaciadoX = ((width/2.5)/((listColumnas1.size()*3)+1));
+        float espaciadoX = ((width/2.5)/((listColumnas1.size()*3)));
         float acumulador = espaciadoX*3 + width/2;
         textAlign(CENTER);
         textSize(26);
         fill(255);
-        text("Column Chart", width/4, -height/2);
+        text("Column Chart", width*3/4, -newHeight-20);
         textSize(13);
+        textAlign(LEFT);
+        Informacion infoG1 = listColumnas1.get(0);
+        Informacion infoG2 = listColumnas2.get(0);
+        fill(infoG1.colorDeFigura);
+        text("Columna 1: "+infoG1.nombreLinea, espaciadoX*20 +width/2, -newHeight-30);
+        fill(infoG2.colorDeFigura);
+        text("Columna 2: "+infoG2.nombreLinea, espaciadoX*20 +width/2, -newHeight-15);
+        fill(255);
+
         int posActual = 0;
         for (Informacion info : listColumnas1) {
             noStroke();
@@ -181,40 +190,38 @@ void columnChart(){
             float escalaValor2 = map(info2.valor, 0, maxValor, 0, newHeight);
             float halfBar = acumulador+(espaciadoX/2);
             fill(info.colorDeFigura);
-            rect(acumulador, -espaciadoY, espaciadoX,-escalaValor1);
+            rect(acumulador, 0, espaciadoX,-escalaValor1);
             
             fill(info2.colorDeFigura);
-            rect(acumulador+espaciadoX, -espaciadoY, espaciadoX,-escalaValor2);
+            rect(acumulador+espaciadoX, 0, espaciadoX,-escalaValor2);
             
             //imprimir label y alinear
             textAlign(CENTER);
-            text(""+info.valor, halfBar,-escalaValor1-35);
+            text(""+info.valor, halfBar,-escalaValor1-20);
             textAlign(CENTER);
-            text("ID: "+info.id, halfBar,-(espaciadoY/2)+20);
+            text("ID: "+info.id, halfBar+(espaciadoX/2),30);
 
             textAlign(CENTER);
-            text(""+info2.valor, halfBar+espaciadoX,-escalaValor2-35);
-            textAlign(CENTER);
-            text("ID: "+info2.id, halfBar+espaciadoX,-(espaciadoY/2)+20);
+            text(""+info2.valor, halfBar+espaciadoX,-escalaValor2-20);
 
             acumulador += espaciadoX*3;
             posActual++;
         }
-        // stroke(255);
-        // strokeWeight(4);
-        // //linea vertical
-        // line(separacion, acumulador+espaciadoY*2, separacion, espaciadoY*2 + height/2 -10);
-        // //linea horizontal
-        // line(separacion-10, acumulador+espaciadoY*2 - 10, width/2-separacion, acumulador+espaciadoY*2 - 10);
-        // //lineas pequeñas verticales
-        // for (int i = 1; i < 7; ++i) {
-        //     float poslineaPeq = map(i, 0, 6, separacion-10, width/2-separacion);
-        //     line(poslineaPeq, acumulador+espaciadoY*2, poslineaPeq, acumulador+espaciadoY);
-        //     float valorRespectoALista = map(poslineaPeq, 0, width/2, 0, maxValor);
-        //     textAlign(CENTER);
-        //     fill(255);
-        //     text(""+valorRespectoALista, poslineaPeq, acumulador+espaciadoY*2 + 20);
-        // }
+        stroke(255);
+        strokeWeight(4);
+        //linea vertical
+        line(espaciadoX*2+width/2, 0, espaciadoX*2+width/2, -newHeight);
+        //linea horizontal
+        line(espaciadoX*2+width/2, 0, acumulador, 0);
+        //lineas pequeñas verticales
+        for (int i = 1; i < 6; ++i) {
+            float poslineaPeq = map(i, 0, 5, 0, maxValor);
+            float valorEscalado = -1*map(poslineaPeq, 0, maxValor,0, newHeight);
+            line((espaciadoX*2+width/2)-10, valorEscalado, (espaciadoX*2+width/2)+10, valorEscalado);
+            textAlign(RIGHT);
+            fill(255);
+            text(String.format("%.2f", poslineaPeq), (espaciadoX*2+width/2)-20, valorEscalado);
+        }
     popMatrix();
 }
 
@@ -414,15 +421,4 @@ void printLinesResaltado(float lastAngle, float grados, float radio){
     float yResaltadoFin = radio * sin(lastAngle+radians(grados));
     line(0, 0, xResaltadoInicio, yResaltadoInicio);
     line(0, 0, xResaltadoFin, yResaltadoFin);
-}
-
-/*
-Función que ayuda a cambiar las variables globales que controlan lo que
-se despliega en pantalla
-*/
-void keyPressed() { 
-    if (key == 'b' || key == 'B')
-        opcionDeFigura =1;
-    if (key == 'p' || key == 'P')
-        opcionDeFigura =2;
 }
