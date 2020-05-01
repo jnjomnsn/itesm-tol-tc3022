@@ -4,6 +4,7 @@ int paddleXR, paddleYR;
 boolean upL, downL;
 boolean upR, downR;
 boolean rightL, leftL;
+boolean rightR, leftR;
 
 color colorL = color(112, 48, 160);
 color colorR = color(0, 176, 80);
@@ -21,10 +22,15 @@ int time = millis();
 int yLimitUp = 60, yLimitDown = 800;
 int xLimitLeft = 200, xLimitRight = 1000;
 int yPlayAreaLimit = 460;
+int yScoreArea = 780;
 
 boolean isLeftTurn = true;
 
 boolean isInPause = false;
+
+boolean initGame = false;
+
+int bounceCount = 0;
 
 void setup() {
   size(1200, 800);
@@ -48,8 +54,8 @@ void setup() {
 
   paddleXL = 400;
   paddleYL = height - 40;
-  paddleXR = width-40;
-  paddleYR = height/2;
+  paddleXR = 800;
+  paddleYR = height - 40;
   paddleW = w*2;
   paddleH = 15;
   paddleS = 5;
@@ -67,10 +73,17 @@ void resetGame(){
       speedX++;
     }
     speedY = -2;
+    
+    bounceCount = 0;
 }
  
  
 void draw() {
+  
+  if(!initGame){
+    gameInitPage();
+    return;
+  }
   
   playGame();
 }
@@ -88,8 +101,7 @@ void playGame(){
   moveCircle();
   bounce();
   drawPaddles();
-  movePaddle();
-  moveAIPaddle();
+  movePaddles();
   restrictPaddle();
   contactPaddle();
   scores();
@@ -98,6 +110,11 @@ void playGame(){
 }
  
 void drawPlayArea(){
+  // Draw the scoring area.
+  strokeWeight(2);
+  stroke(blueColor);
+  line(xLimitLeft, yScoreArea, xLimitRight, yScoreArea);
+  
   // Draw limit areas.
   strokeWeight(2);
   stroke(darkBlueColor);
@@ -121,9 +138,7 @@ void drawPlayArea(){
 }
 
 void drawPaddles() {
-  
   rectMode(CENTER);
-  
   fill(colorL);
   rect(paddleXL, paddleYL, paddleW, paddleH);
   fill(colorR);
@@ -131,7 +146,7 @@ void drawPaddles() {
 }
 
  
-void movePaddle() {
+void movePaddles() {
   // Left paddle.
   if (upL) {
     paddleYL = paddleYL - paddleS;
@@ -153,27 +168,13 @@ void movePaddle() {
   if (downR) {
     paddleYR = paddleYR + paddleS;
   }
-}
-
-boolean moveUp;
-int randTime;
-void moveAIPaddle(){
-    if(speedX <= 0){
-      return;
-    }
-    
-    if (millis() > time + 1000)
-    {
-      moveUp  = !moveUp;
-      upR = moveUp;
-      downR = !moveUp;
-      
-      randTime = (int)random(1500, 1800);
-      
-      time = millis();
-    }
-}
- 
+  if (leftR) {
+    paddleXR = paddleXR - paddleS;
+  }
+  if (rightR) {
+    paddleXR = paddleXR + paddleS;
+  }
+} 
 
 void restrictPaddle() {
   // Left paddle.
@@ -191,53 +192,80 @@ void restrictPaddle() {
   }
   
   // Right paddle.
-  if (paddleYR - paddleH/2 < 0) {
+  if (paddleYR + paddleH/2 < yLimitDown) {
     paddleYR = paddleYR + paddleS;
   }
-  if (paddleYR + paddleH/2 > height) {
+  if (paddleYR - paddleH/2 > yPlayAreaLimit) {
     paddleYR = paddleYR - paddleS;
+  }
+  if (paddleXR - paddleW/2 < xLimitLeft) {
+    paddleXR = paddleXR + paddleS;
+  }
+  if (paddleXR + paddleW/2 > xLimitRight) {
+    paddleXR = paddleXR - paddleS;
   }
 }
  
  
 void contactPaddle() {
   if(isLeftTurn && speedY > 0){
+
     // Check the collision on x-axis on the left paddle.
     if ((x - w/2 > paddleXL - paddleW/2 && x - w/2 < paddleXL + paddleW/2) || 
         (x + w/2 > paddleXL - paddleW/2 && x + w/2 < paddleXL + paddleW/2)) {
           // Check the collision on y-axis on the left paddle.
           if ((y - h/2 > paddleYL - paddleH/2 && y - h/2 < paddleYL + paddleH/2) || 
               (y + h/2 > paddleYL - paddleH/2 && y + h/2 < paddleYL + paddleH/2)){
-                // Change the turn.
-                isLeftTurn = !isLeftTurn;
-                // Reverse the speed of the ball.
-                speedY = -speedY*1;
+                // After 5 bounces, reset the game and add score;
+                bounceCount++;
+                if(bounceCount >= 5){
+                  scoreL++;
+                  resetGame();
+                  
+                }else{
+                  // Change the turn.
+                  isLeftTurn = !isLeftTurn;
+                  // Reverse the speed of the ball.
+                  speedY = -speedY*1;
+                }
+                
           }
     }
   }
-  /*
-  if (isCollidingCircleRectangle(x, y, w, paddleXL, paddleYL, paddleW, paddleH)){
-    println("Collided!");
-    if (speedY < 0) {
-      speedY = -speedY*1;
+  else if(!isLeftTurn && speedY > 0){
+    // Check the collision on x-axis on the right paddle.
+    if ((x - w/2 > paddleXR - paddleW/2 && x - w/2 < paddleXR + paddleW/2) || 
+        (x + w/2 > paddleXR - paddleW/2 && x + w/2 < paddleXR + paddleW/2)) {
+          // Check the collision on y-axis on the right paddle.
+          if ((y - h/2 > paddleYR - paddleH/2 && y - h/2 < paddleYR + paddleH/2) || 
+              (y + h/2 > paddleYR - paddleH/2 && y + h/2 < paddleYR + paddleH/2)){
+                // After 5 bounces, reset the game and add score;
+                bounceCount++;
+                if(bounceCount >= 5){
+                  scoreL++;
+                  resetGame();
+                  return;
+                }
+                else{
+                  // Change the turn.
+                  isLeftTurn = !isLeftTurn;
+                  // Reverse the speed of the ball.
+                  speedY = -speedY*1;
+                }
+          }
     }
   }
-  else if (x + w/2 > paddleXR - paddleW/2 && y - h/2 < paddleYR + paddleH/2 && y + h/2 > paddleYR - paddleH/2 ) {
-    if (speedX > 0) {
-      speedY = -speedY*1;
-    }
-  }
-  */
 }
 
 void drawCircle() {
   
   if(isLeftTurn){
     fill(colorL);
+    stroke(colorL);
   }else{
     fill(colorR);
+    stroke(colorR);
   }
-  
   ellipse(x, y, w, h);
 }
 
@@ -260,14 +288,13 @@ void bounce() {
     //resetGame();
     //scoreR = scoreR + 1;
   }
-  if ( y > yLimitDown - h/2) {
+  if ( y > yScoreArea - h/2) {
     // Add the point, reset the game.
     if(isLeftTurn){
       scoreR++;
     }else{
       scoreL++;
     }
-    isLeftTurn = !isLeftTurn;
     resetGame();
   } else if ( y < yLimitUp + h/2) {
     speedY = -speedY;
@@ -276,9 +303,14 @@ void bounce() {
  
  
 void scores() {
-  fill(0);
-  text(scoreL, 100, 50);
-  text(scoreR, width-50, 50);
+
+  textSize(70);
+  
+  fill(colorL);
+  text(scoreL+"\nA", 100, 110);
+  
+  fill(colorR);
+  text(scoreR+"\nB", width-100, 110);
 }
 
 void instructions(){
@@ -293,27 +325,54 @@ void mousePressed(){
  
 void gameOver() {
   if(scoreL == winScore) {
-    gameOverPage("Ganaste!", colorL);
+    gameOverPage("Player 1 Wins!", colorL);
   }
   if(scoreR == winScore) {
-    gameOverPage("La IA ganó!", colorR);
+    gameOverPage("Player 2 Wins!", colorR);
   }
 }
- 
- 
+
+
+void gameInitPage() {
+  speedX = 0;
+  speedY = 0;
+  fill(255);
+  text("Squash", width/2, 100);
+  
+  textSize(20);
+  text("Player 1 movement: W A S D \n\n Player 2 movement: UP LEFT DOWN RIGHT \n\n Pause Key: [p] or [P]\n\n Exit the game: [esc]", width/2, 350);
+  
+  textSize(50);
+  text("Click anywhere to play", width/2, height-200);
+  if(mousePressed) {
+    initGame = true;
+    scoreR = 0;
+    scoreL = 0;
+    resetGame();
+  }
+}
+
+
 void gameOverPage(String text, color c) {
   speedX = 0;
   speedY = 0;
   fill(255);
-  text("Juego Terminado", width/2, height/3 - 40);
-  text("Presiona para jugar otra vez", width/2, height/3 + 40);
+  text("Game Over", width/2, height/3 - 40);
+  text("Click anywhere to play again", width/2, height/3 + 40);
   fill(c);
   text(text, width/2, height/3);
+  
+  openAnalytics();
+  
   if(mousePressed) {
     scoreR = 0;
     scoreL = 0;
     resetGame();
   }
+}
+
+void openAnalytics(){
+  println("Showing analytics...");
 }
  
  
@@ -333,13 +392,36 @@ void keyPressed() {
     rightL = true;
   }
   
-  // Pause
+  // Right movement.
+  if (key == CODED) 
+  {
+    if (keyCode == UP) {
+      upR = true;
+    }
+    if (keyCode == DOWN) {
+      downR = true;
+    }
+    if (keyCode ==LEFT) {
+      leftR = true;
+    }
+    if (keyCode == RIGHT) {
+      rightR = true;
+    }
+  }
+  
+  // Pause action.
   if (key == 'p' || key == 'P') {
     isInPause =  !isInPause;
+  }
+  
+  // Leave game.
+  if (keyCode == 27) {
+    exit();
   }
 }
   
 void keyReleased() {
+  // Left movement.
   if (key == 'w' || key == 'W') {
     upL = false;
   }
@@ -351,6 +433,23 @@ void keyReleased() {
   }
   if (key == 'd' || key == 'D') {
     rightL = false;
+  }
+  
+  // Right movement.
+  if (key == CODED) 
+  {
+    if (keyCode == UP) {
+      upR = false;
+    }
+    if (keyCode == DOWN) {
+      downR = false;
+    }
+    if (keyCode ==LEFT) {
+      leftR = false;
+    }
+    if (keyCode == RIGHT) {
+      rightR = false;
+    }
   }
 
 }
