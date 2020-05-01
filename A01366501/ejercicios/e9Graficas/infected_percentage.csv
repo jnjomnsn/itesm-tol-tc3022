@@ -1,0 +1,9 @@
+age,percentage,highlight
+> 65,30,NO
+53-64,17,NO
+40-52,15,NO
+31-39,12,YES
+18-30,11,NO
+12 to 17,8,NO
+<12,7,NO
+,,

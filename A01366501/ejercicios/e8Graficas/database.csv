@@ -1,0 +1,8 @@
+name,fps,highlight
+RTX 2080 Super,250,YES
+Titan X (Pascal 2016),144,NO
+GTX 1080,120,NO
+GTX 1660 Super,65,NO
+GTX 1060,45,YES
+GTX 1050,35,NO
+Intel Core,10,NO
