@@ -1,3 +1,5 @@
+GameAnalytics win;
+
 int x, y, w, h, speedX, speedY;
 int paddleXL, paddleYL, paddleW, paddleH, paddleS;
 int paddleXR, paddleYR;
@@ -16,7 +18,7 @@ color greyColor = color(175, 171, 171);
 int scoreL = 0; 
 int scoreR = 0;
 
-int winScore = 5;
+int winScore = 1;
 
 int time = millis();
 
@@ -35,8 +37,14 @@ int bounceCount = 0;
 
 boolean hasStartedRound = false;
 
-void setup() {
+boolean alreadySavedData = false;
+
+public void settings() {
   size(1200, 800);
+}
+
+void setup() {
+  
   
   x = width/2; 
   y = 460;
@@ -80,6 +88,8 @@ void resetGame(){
     bounceCount = 0;
     
     hasStartedRound = false;
+    
+    alreadySavedData = false;
 }
  
  
@@ -132,14 +142,14 @@ void drawBackgroundColors(){
   background(255);
   
   rectMode(CORNER);
-  
-  fill(blueColor);
   noStroke();
   
+  fill(blueColor);
   rect(0, 0, 180, 800);
   rect(1020, 0, 180, 800);
   rect(180, 0, 840, 40);
   
+  fill(greyColor);
   rect(200, 60, 800, 800);
   
   rectMode(CENTER);
@@ -343,7 +353,6 @@ void bounce() {
  
  
 void scores() {
-
   textSize(70);
   
   fill(colorL);
@@ -353,11 +362,6 @@ void scores() {
   text(scoreR+"\nB", width-100, 110);
 }
 
-
-void mousePressed(){
-    println(mouseX+"_"+mouseY);
-}
- 
  
 void gameOver() {
   if(scoreL == winScore) {
@@ -370,11 +374,15 @@ void gameOver() {
 
 
 void gameInitPage() {
+  background(blueColor);
+  
+  fill(0);
+  
   textSize(50);
   
   speedX = 0;
   speedY = 0;
-  fill(darkBlueColor);
+  
   text("Squash", width/2, 100);
   
   textSize(20);
@@ -382,6 +390,7 @@ void gameInitPage() {
   
   textSize(50);
   text("Click anywhere to play", width/2, height-200);
+  
   if(mousePressed) {
     initGame = true;
     scoreR = 0;
@@ -396,29 +405,78 @@ void gameOverPage(String text, color c) {
   
   speedX = 0;
   speedY = 0;
+  
   if(scoreL == winScore) {
     fill(colorL);
   }
   if(scoreR == winScore) {
     fill(colorR);
   }
+  
   text("Game Over", width/2, height/3 - 100);
   text(text, width/2, height/3);
   text("Click anywhere to play again", width/2, height/3  + 100);
   
-  openAnalytics();
+  saveData();
+  
+  hasStartedRound = true;
+  isLeftTurn = true;
   
   if(mousePressed) {
     scoreR = 0;
     scoreL = 0;
+    paddleXL = 400;
+    paddleYL = height - 40;
+    paddleXR = 800;
+    paddleYR = height - 40;
+    
     resetGame();
   }
 }
 
-void openAnalytics(){
-  println("Showing analytics...");
+
+void saveData(){
+  // Only save 
+  if(!alreadySavedData){
+    alreadySavedData = true;
+    
+    // Load the data.
+    Table table = loadTable("scores.csv", "header");
+
+    // Traverse the only one row.
+    for (TableRow row : table.rows()) {
+  
+      // Get the score of both players.
+      int a_score = row.getInt("a_wins");
+      int b_score = row.getInt("b_wins");
+      
+      int totalGames = a_score + b_score;
+      
+      // Add the corresponding score to the winner.
+      if(scoreL == winScore) {
+        a_score++;
+        row.setInt("a_wins", a_score);
+      }
+      if(scoreR == winScore) {
+        b_score++;
+        row.setInt("b_wins", b_score);
+      }
+  
+      println("A score: "+a_score);
+      println("B score: "+b_score);
+      
+      // Save the data into the csv.
+      saveTable(table, "scores.csv");
+      
+      // Open the new graph window.
+      win = new GameAnalytics();
+      win.setValues(a_score, b_score, totalGames);
+      
+      // Do it only one time, avoid loops.
+      break;
+    }
+  }
 }
- 
  
 void keyPressed() {
   
@@ -500,5 +558,82 @@ void keyReleased() {
       rightR = false;
     }
   }
+}
 
+
+class GameAnalytics extends PApplet {
+  
+  int aWins, bWins, totalGames;
+  
+  GameAnalytics() {
+    super();
+    PApplet.runSketch(new String[] {this.getClass().getSimpleName()}, this);
+  }
+  
+  public void setValues(int aWins, int bWins, int totalGames){
+    this.aWins = aWins;
+    this.bWins = bWins;
+    this.totalGames = totalGames + 1;
+  }
+
+  void settings() {
+    size(1000, 700);
+  }
+
+  void setup() {
+    println("Opening new window...");
+    background(150);
+    noLoop();
+  }
+
+  void draw() {
+    background(219);
+    pieChart(450);
+  }
+  
+  void pieChart(float diameter) {
+    float lastAngle = 0;
+    int i = 0;
+    
+    int winArray[] = {aWins, bWins};
+    int colors[] = {color(112, 48, 160), color(0, 176, 80)};
+    
+    fill(0);
+    textSize(40);
+    noStroke();
+    text("Winned Games Chart", 35, 60);
+    
+    for(i = 0; i < 2; i++){
+      
+      float mappedValue = map(winArray[i], 0, totalGames, 0, 360);
+      
+      fill(colors[i]);
+      
+      arc(width/2, height/2, diameter, diameter, lastAngle, lastAngle+radians(mappedValue));
+      
+      lastAngle += radians(mappedValue);
+      
+      // Draw information.
+      rect(800, 300+(50*i), 25, 25);
+      fill(0);
+      textSize(25);
+      
+      String wins = "";
+      if(i==0){
+        wins = "A Wins : ";
+      }else{
+        wins = "B Wins : ";
+      }
+      text(wins + winArray[i], 830, 320+(50*i));
+    }
+    
+    textSize(20);
+    textAlign(CENTER);
+    text("Click anywhere on the screen to close", width/2, 650);
+  }
+  
+  void mousePressed() {
+    println("Closing analytics window...");
+    this.getSurface().setVisible(false);
+  }
 }
