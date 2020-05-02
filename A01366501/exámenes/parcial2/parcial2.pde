@@ -247,7 +247,7 @@ void movePaddles() {
 // This function will manage the movement of the paddles to avoid exiting the play area.
 void restrictPaddle() {
   // Left paddle.
-  if (paddleYL + paddleH/2 < yLimitDown) {
+  if (paddleYL + paddleH/2 < yScoreArea) {
     paddleYL = paddleYL + paddleS;
   }
   if (paddleYL - paddleH/2 > yPlayAreaLimit) {
@@ -261,7 +261,7 @@ void restrictPaddle() {
   }
   
   // Right paddle.
-  if (paddleYR + paddleH/2 < yLimitDown) {
+  if (paddleYR + paddleH/2 < yScoreArea) {
     paddleYR = paddleYR + paddleS;
   }
   if (paddleYR - paddleH/2 > yPlayAreaLimit) {
