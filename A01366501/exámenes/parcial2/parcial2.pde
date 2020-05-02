@@ -11,6 +11,7 @@ color colorR = color(0, 176, 80);
 
 color darkBlueColor = color(63, 93, 146);
 color blueColor = color(68, 114, 196);
+color greyColor = color(175, 171, 171);
 
 int scoreL = 0; 
 int scoreR = 0;
@@ -31,6 +32,8 @@ boolean isInPause = false;
 boolean initGame = false;
 
 int bounceCount = 0;
+
+boolean hasStartedRound = false;
 
 void setup() {
   size(1200, 800);
@@ -75,6 +78,8 @@ void resetGame(){
     speedY = -2;
     
     bounceCount = 0;
+    
+    hasStartedRound = false;
 }
  
  
@@ -89,24 +94,55 @@ void draw() {
 }
 
 void playGame(){
-  
-  if(isInPause){
-    text("PAUSE", width/2, height/2);
+  // Check if the game's in pause.
+  if(isInPause && hasStartedRound){
+    textSize(40);
+    fill(0);
+    text("PAUSE", width/2, height/2 - 140);
     return;
   }
   
-  background(255);
+  // Drawing and information functions.
+  drawBackgroundColors();
   drawPlayArea();
   drawCircle();
+  drawPaddles();
+  scores();
+  
+  // Show the start round key instructions after all the information has been rendered.
+  if(!hasStartedRound){
+    textSize(30);
+    fill(0);
+    text("Press [G] to start the round", width/2, height/2-140);
+    return;
+  }
+  
+  // Movement functions.
   moveCircle();
   bounce();
-  drawPaddles();
   movePaddles();
   restrictPaddle();
   contactPaddle();
-  scores();
+  
+  // Check if game over function.
   gameOver();
-  //instructions();
+}
+
+void drawBackgroundColors(){
+  background(255);
+  
+  rectMode(CORNER);
+  
+  fill(blueColor);
+  noStroke();
+  
+  rect(0, 0, 180, 800);
+  rect(1020, 0, 180, 800);
+  rect(180, 0, 840, 40);
+  
+  rect(200, 60, 800, 800);
+  
+  rectMode(CENTER);
 }
  
 void drawPlayArea(){
@@ -121,6 +157,10 @@ void drawPlayArea(){
   line(xLimitLeft, yLimitUp, xLimitLeft, yLimitDown);
   line(xLimitRight, yLimitUp, xLimitRight, yLimitDown);
   line(xLimitRight, yLimitUp, xLimitLeft, yLimitUp);
+  
+  line(xLimitLeft-20, yLimitUp-20, xLimitLeft-20, yLimitDown);
+  line(xLimitRight+20, yLimitUp-20, xLimitRight+20, yLimitDown);
+  line(xLimitRight+20, yLimitUp-20, xLimitLeft-20, yLimitUp-20);
   
   // Draw play area.
   stroke(255,0,0);
@@ -216,19 +256,10 @@ void contactPaddle() {
           // Check the collision on y-axis on the left paddle.
           if ((y - h/2 > paddleYL - paddleH/2 && y - h/2 < paddleYL + paddleH/2) || 
               (y + h/2 > paddleYL - paddleH/2 && y + h/2 < paddleYL + paddleH/2)){
-                // After 5 bounces, reset the game and add score;
-                bounceCount++;
-                if(bounceCount >= 5){
-                  scoreL++;
-                  resetGame();
-                  
-                }else{
-                  // Change the turn.
+                // Change the turn.
                   isLeftTurn = !isLeftTurn;
                   // Reverse the speed of the ball.
                   speedY = -speedY*1;
-                }
-                
           }
     }
   }
@@ -239,19 +270,10 @@ void contactPaddle() {
           // Check the collision on y-axis on the right paddle.
           if ((y - h/2 > paddleYR - paddleH/2 && y - h/2 < paddleYR + paddleH/2) || 
               (y + h/2 > paddleYR - paddleH/2 && y + h/2 < paddleYR + paddleH/2)){
-                // After 5 bounces, reset the game and add score;
-                bounceCount++;
-                if(bounceCount >= 5){
-                  scoreL++;
-                  resetGame();
-                  return;
-                }
-                else{
-                  // Change the turn.
-                  isLeftTurn = !isLeftTurn;
-                  // Reverse the speed of the ball.
-                  speedY = -speedY*1;
-                }
+                // Change the turn.
+                isLeftTurn = !isLeftTurn;
+                // Reverse the speed of the ball.
+                speedY = -speedY*1;
           }
     }
   }
@@ -279,14 +301,30 @@ void moveCircle() {
   
 void bounce() {
  if ( x > xLimitRight - w/2) {
-    
-    //resetGame();
+
     speedX = -speedX;
+    
+    bounceCount++;
+    if(bounceCount >= 5){
+      if(isLeftTurn){
+        scoreR++;
+      }else{
+        scoreL++;
+      }
+    }
     //scoreL = scoreL + 1;
   } else if ( x < xLimitLeft + w/2) {
     speedX = -speedX;
-    //resetGame();
-    //scoreR = scoreR + 1;
+
+    bounceCount++;
+    if(bounceCount >= 5){
+      if(isLeftTurn){
+        scoreR++;
+      }else{
+        scoreL++;
+      }
+    }
+    
   }
   if ( y > yScoreArea - h/2) {
     // Add the point, reset the game.
@@ -298,6 +336,8 @@ void bounce() {
     resetGame();
   } else if ( y < yLimitUp + h/2) {
     speedY = -speedY;
+    
+    bounceCount = 0;
   }
 }
  
@@ -313,11 +353,7 @@ void scores() {
   text(scoreR+"\nB", width-100, 110);
 }
 
-void instructions(){
-  textSize(15);
-  text("Mueve el panel izquierdo con\nlas teclas W & S.\nGana anotando 5 puntos", 450, 45);
-  textSize(50);
-}
+
 void mousePressed(){
     println(mouseX+"_"+mouseY);
 }
@@ -325,22 +361,24 @@ void mousePressed(){
  
 void gameOver() {
   if(scoreL == winScore) {
-    gameOverPage("Player 1 Wins!", colorL);
+    gameOverPage("Player A Wins!", colorL);
   }
   if(scoreR == winScore) {
-    gameOverPage("Player 2 Wins!", colorR);
+    gameOverPage("Player B Wins!", colorR);
   }
 }
 
 
 void gameInitPage() {
+  textSize(50);
+  
   speedX = 0;
   speedY = 0;
-  fill(255);
+  fill(darkBlueColor);
   text("Squash", width/2, 100);
   
   textSize(20);
-  text("Player 1 movement: W A S D \n\n Player 2 movement: UP LEFT DOWN RIGHT \n\n Pause Key: [p] or [P]\n\n Exit the game: [esc]", width/2, 350);
+  text("Player A movement: W A S D \n\n Player B movement: UP LEFT DOWN RIGHT \n\n Pause Key: [p] or [P]\n\n Press [g] or [G] to start a round \n\nExit the game: [esc]", width/2, 350);
   
   textSize(50);
   text("Click anywhere to play", width/2, height-200);
@@ -354,13 +392,19 @@ void gameInitPage() {
 
 
 void gameOverPage(String text, color c) {
+  textSize(50);
+  
   speedX = 0;
   speedY = 0;
-  fill(255);
-  text("Game Over", width/2, height/3 - 40);
-  text("Click anywhere to play again", width/2, height/3 + 40);
-  fill(c);
+  if(scoreL == winScore) {
+    fill(colorL);
+  }
+  if(scoreR == winScore) {
+    fill(colorR);
+  }
+  text("Game Over", width/2, height/3 - 100);
   text(text, width/2, height/3);
+  text("Click anywhere to play again", width/2, height/3  + 100);
   
   openAnalytics();
   
@@ -412,6 +456,11 @@ void keyPressed() {
   // Pause action.
   if (key == 'p' || key == 'P') {
     isInPause =  !isInPause;
+  }
+  
+  // Pause action.
+  if (key == 'g' || key == 'G') {
+    hasStartedRound =  true;
   }
   
   // Leave game.
