@@ -1,5 +1,7 @@
+// Object reference for the creation of the analytics window.
 GameAnalytics win;
 
+// Movement and size variables.
 int x, y, w, h, speedX, speedY;
 int paddleXL, paddleYL, paddleW, paddleH, paddleS;
 int paddleXR, paddleYR;
@@ -8,61 +10,61 @@ boolean upR, downR;
 boolean rightL, leftL;
 boolean rightR, leftR;
 
+// Color variables.
 color colorL = color(112, 48, 160);
 color colorR = color(0, 176, 80);
-
 color darkBlueColor = color(63, 93, 146);
 color blueColor = color(68, 114, 196);
 color greyColor = color(175, 171, 171);
 
+// Score variables.
 int scoreL = 0; 
 int scoreR = 0;
+int winScore = 5;
 
-int winScore = 1;
-
+// Timer variable.
 int time = millis();
 
+// Limits values.
 int yLimitUp = 60, yLimitDown = 800;
 int xLimitLeft = 200, xLimitRight = 1000;
 int yPlayAreaLimit = 460;
 int yScoreArea = 780;
 
+// Booleans and values for controlling the game.
 boolean isLeftTurn = true;
-
 boolean isInPause = false;
-
 boolean initGame = false;
-
 int bounceCount = 0;
-
 boolean hasStartedRound = false;
-
 boolean alreadySavedData = false;
 
+// Settings processing function.
 public void settings() {
   size(1200, 800);
 }
 
+// Setup processing function.
 void setup() {
-  
-  
+  // Coordinates and size of the ball.
   x = width/2; 
   y = 460;
-  
   w = 25;
   h = 25;
   
+  // Start the speed of the ball.
   speedX = (int)(random(-2, 2));
   if(speedX == 0){
     speedX++;
   }
   speedY = -2;
 
-  
+  // Text settings.
   textSize(50);
   textAlign(CENTER, CENTER); 
   rectMode(CENTER); 
 
+  // Paddle settings.
   paddleXL = 400;
   paddleYL = height - 40;
   paddleXR = 800;
@@ -75,6 +77,8 @@ void setup() {
   
 }
 
+
+// This function will reset the game with the start values.
 void resetGame(){
     x = width/2; 
     y = 460;
@@ -92,17 +96,22 @@ void resetGame(){
     alreadySavedData = false;
 }
  
- 
+
+// Draw per frame processing function.
 void draw() {
   
+  // Check if the game has been initiated.
   if(!initGame){
     gameInitPage();
     return;
   }
   
+  // If the game has already begun... Play!
   playGame();
 }
 
+
+// This function will manage all the mechanic functions in the game.
 void playGame(){
   // Check if the game's in pause.
   if(isInPause && hasStartedRound){
@@ -138,6 +147,8 @@ void playGame(){
   gameOver();
 }
 
+
+// This function will draw all the background color of the game.
 void drawBackgroundColors(){
   background(255);
   
@@ -154,7 +165,9 @@ void drawBackgroundColors(){
   
   rectMode(CENTER);
 }
- 
+
+
+// This function will draw all the lines delimitating the play area.
 void drawPlayArea(){
   // Draw the scoring area.
   strokeWeight(2);
@@ -187,6 +200,8 @@ void drawPlayArea(){
   strokeWeight(0);
 }
 
+
+// Draw the left and right paddles.
 void drawPaddles() {
   rectMode(CENTER);
   fill(colorL);
@@ -195,7 +210,9 @@ void drawPaddles() {
   rect(paddleXR, paddleYR, paddleW, paddleH);
 }
 
- 
+
+
+// Move the left and right paddles.
 void movePaddles() {
   // Left paddle.
   if (upL) {
@@ -226,6 +243,8 @@ void movePaddles() {
   }
 } 
 
+
+// This function will manage the movement of the paddles to avoid exiting the play area.
 void restrictPaddle() {
   // Left paddle.
   if (paddleYL + paddleH/2 < yLimitDown) {
@@ -256,7 +275,8 @@ void restrictPaddle() {
   }
 }
  
- 
+
+// This function will check if the ball touched any of the two paddles.
 void contactPaddle() {
   if(isLeftTurn && speedY > 0){
 
@@ -289,6 +309,8 @@ void contactPaddle() {
   }
 }
 
+
+// This function will draw the ball.
 void drawCircle() {
   
   if(isLeftTurn){
@@ -302,19 +324,23 @@ void drawCircle() {
 }
 
 
+// This function will move the ball according to the speeds.
 void moveCircle() {  
   x = x + speedX*2;
   y = y + speedY*2;
   if (speedY == 0)
       speedY = -2;
 }
-  
+
+
+// This function will bounce the ball if it touched the walls or the upper limit. It the ball touched the down limit, it will add to the player in turn score.
 void bounce() {
  if ( x > xLimitRight - w/2) {
-
     speedX = -speedX;
     
+    // Check the bounce counter.
     bounceCount++;
+    // If the ball has touched 5 times any of the walls, add a point.
     if(bounceCount >= 5){
       if(isLeftTurn){
         scoreR++;
@@ -326,7 +352,9 @@ void bounce() {
   } else if ( x < xLimitLeft + w/2) {
     speedX = -speedX;
 
+    // Check the bounce counter.
     bounceCount++;
+    // If the ball has touched 5 times any of the walls, add a point.
     if(bounceCount >= 5){
       if(isLeftTurn){
         scoreR++;
@@ -351,7 +379,8 @@ void bounce() {
   }
 }
  
- 
+
+// Print the scores in the screen.
 void scores() {
   textSize(70);
   
@@ -362,7 +391,8 @@ void scores() {
   text(scoreR+"\nB", width-100, 110);
 }
 
- 
+
+// This function will check if the game is over.
 void gameOver() {
   if(scoreL == winScore) {
     gameOverPage("Player A Wins!", colorL);
@@ -373,6 +403,7 @@ void gameOver() {
 }
 
 
+// Game init information.
 void gameInitPage() {
   background(blueColor);
   
@@ -400,6 +431,7 @@ void gameInitPage() {
 }
 
 
+// Game over information.
 void gameOverPage(String text, color c) {
   textSize(50);
   
@@ -435,6 +467,7 @@ void gameOverPage(String text, color c) {
 }
 
 
+// This function will save the data to the csv file and will show the pie chart.
 void saveData(){
   // Only save 
   if(!alreadySavedData){
@@ -477,7 +510,9 @@ void saveData(){
     }
   }
 }
- 
+
+
+// Key pressed functions for movement.
 void keyPressed() {
   
   // Left movement.
@@ -526,7 +561,9 @@ void keyPressed() {
     exit();
   }
 }
-  
+
+
+// Key pressed functions for movement.
 void keyReleased() {
   // Left movement.
   if (key == 'w' || key == 'W') {
@@ -561,36 +598,49 @@ void keyReleased() {
 }
 
 
+// This class will print the pie chart in a new window.
 class GameAnalytics extends PApplet {
   
+  // Values for the new window.
   int aWins, bWins, totalGames;
   
+  // Constructor for the new class.
   GameAnalytics() {
     super();
     PApplet.runSketch(new String[] {this.getClass().getSimpleName()}, this);
   }
   
+  
+  // Values from the main class.
   public void setValues(int aWins, int bWins, int totalGames){
     this.aWins = aWins;
     this.bWins = bWins;
     this.totalGames = totalGames + 1;
   }
 
+
+  // Settings function.
   void settings() {
     size(1000, 700);
   }
 
+
+  // Start function.
   void setup() {
-    println("Opening new window...");
+    println("Opening analytics window...");
     background(150);
     noLoop();
   }
 
+  
+  // Draw per frame function.
   void draw() {
     background(219);
     pieChart(450);
   }
   
+  
+  // This function will print the pie chart with the values given from the main class.
   void pieChart(float diameter) {
     float lastAngle = 0;
     int i = 0;
@@ -632,6 +682,8 @@ class GameAnalytics extends PApplet {
     text("Click anywhere on the screen to close", width/2, 650);
   }
   
+  
+  // This function will close the window on a click.
   void mousePressed() {
     println("Closing analytics window...");
     this.getSurface().setVisible(false);
