@@ -192,6 +192,7 @@ public class Bola {
 public class Informacion implements Comparable<Informacion>{
     String id; //identificador de la linea en la que está el dato
     int valor; //valor del dato
+    color colorDeFigura;
 
 	public String getId() {
 		return this.id;
@@ -212,6 +213,7 @@ public class Informacion implements Comparable<Informacion>{
     public Informacion (String id,int valor) {
         this.id = id;
         this.valor = valor;
+        this.colorDeFigura = color(#59B8F5);
     }
     //método para poder ordenar cuando el objeto se encuentre en una lista
     @Override     
@@ -321,7 +323,7 @@ void printLinesResaltado(float lastAngle, float grados, float radio){
 tener que recargar la información del archivo y también aumentar el número de victorias en el 
 archivo */
 void addWins(){
-    Informacion info = new Informacion(" ",0," "); //crear el objeto temporal para aumentar el numero de victorias
+    Informacion info = new Informacion(" ",0); //crear el objeto temporal para aumentar el numero de victorias
     if(player1.puntaje == 5){ //si el jugador 1 fue el que ganó 
         info = listPie.get(0); //obtener el objeto de la información
         TableRow row = table.getRow(0); //obtener la fila en la tabla
@@ -406,6 +408,17 @@ void sumarPuntos(){
     if(puntajeMax == 5){ //si alguno de los dos ya ganó cambiar la pantalla 
         control = Game.GANAR;
     }
+}
+
+/*función para hacer la pausa del juego e imprimir el mensaje de que está pausado el juego*/
+void pausa(){
+    if (looping){
+        textAlign(CENTER);
+        textSize(55);
+        text("PAUSA",width/2,height/2);
+        noLoop();
+    }else
+        loop();
 }
 
 /*Función para mostrar las instrucciones en pantalla*/
@@ -495,8 +508,8 @@ void keyPressed() {
             player1.moveSides(-moveSpeed);
         if (key == 'd' || key == 'D')
             player1.moveSides(moveSpeed);
-        if (key == 'p' || key == 'P') //tecla para pausar
-            println("holi");
+        if (key == 'p' || key == 'P')//tecla para pausar
+            pausa();
         if (key == 'r' || key == 'R') //tecla para reiniciar
             restart();
     }
