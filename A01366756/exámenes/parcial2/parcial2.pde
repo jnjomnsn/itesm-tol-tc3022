@@ -3,9 +3,7 @@ import java.util.*;
 
 /*
 TODO:
-- hacer la pantalla de instrucciones
-- comentar mejor la parte de la creacion de los objetos
-- comentar mejor la parte de los displays de ambas clases
+- Hacer que se pueda parar 
 - Hacer que la pelota no pueda rebotar por abajo del jugador
 - Hacer que la pelota tenga una dirección diferente cada que choca con un jugador
 - Poner el contador de rebotes
@@ -307,26 +305,7 @@ void pieChart(){
     text("Presione 'r' o 'R' para reiniciar el juego",width-20,height-50); //mensaje para informar de la opción de reiniciar
 }
 
-/*Función para aumentar las victorias de cada jugador en la lista con la información */
-void addWins(){
-    String str = " ";
-    Informacion info = new Informacion(" ",0," ");
-    if(player1.puntaje == 5){
-        info = listPie.get(0);
-        TableRow row = table.getRow(0);
-        row.setInt("valor",row.getInt("valor")+1);
-        saveTable(table, "graficaCircular.csv");
-    }else if(player2.puntaje == 5){
-        info = listPie.get(1);
-        TableRow row = table.getRow(1);
-        row.setInt("valor",row.getInt("valor")+1);
-        saveTable(table, "graficaCircular.csv");
-    }
-
-    info.valor++;
-    totalDeValoresPie++;
-}
-
+/*Función para imprimir las divisiones de cada segmento de la gráfica circular */
 void printLinesResaltado(float lastAngle, float grados, float radio){
     stroke(100);
     strokeWeight(1);
@@ -338,7 +317,28 @@ void printLinesResaltado(float lastAngle, float grados, float radio){
     line(0, 0, xResaltadoFin, yResaltadoFin);
 }
 
-//función que ayuda a dibujar la cancha donde se pueden mover los jugadores
+/*Función para aumentar las victorias de cada jugador en la lista con la información para no 
+tener que recargar la información del archivo y también aumentar el número de victorias en el 
+archivo */
+void addWins(){
+    Informacion info = new Informacion(" ",0," "); //crear el objeto temporal para aumentar el numero de victorias
+    if(player1.puntaje == 5){ //si el jugador 1 fue el que ganó 
+        info = listPie.get(0); //obtener el objeto de la información
+        TableRow row = table.getRow(0); //obtener la fila en la tabla
+        row.setInt("valor",row.getInt("valor")+1); //establecer el nuevo valor de victorias
+        saveTable(table, "graficaCircular.csv"); //guardar los cambios en el archivo
+    }else if(player2.puntaje == 5){ //si el jugador 2 fue el que ganó hacer el mismo proceso pero para el jugador correspondiente
+        info = listPie.get(1);
+        TableRow row = table.getRow(1);
+        row.setInt("valor",row.getInt("valor")+1);
+        saveTable(table, "graficaCircular.csv");
+    }
+
+    info.valor++; //sumar 1 al valor correspondiente
+    totalDeValoresPie++; //sumar 1 al total de valores
+}
+
+/*función que ayuda a dibujar la cancha donde se pueden mover los jugadores*/
 void cancha(){
     strokeWeight(1);
     //lineas grandes
@@ -361,61 +361,60 @@ void cancha(){
     stroke(0);
 }
 
-/*funcion para reiniciar la partida para que continuae el juego después de que caiga la pelota*/
+/*función para reiniciar la partida para que continuae el juego después de que caiga la pelota*/
 void pierde(){
+    // Sumar los puntos al puntaje del jugador correspondiente
     sumarPuntos();
-    bola.x = width/2;
-    bola.y = height/2;
-    disparado = false;
+    bola.x = width/2; // reestablecer la posición en x de la pelota
+    bola.y = height/2; // reestablecer la posición en y de la pelota
+    disparado = false; // establecer que la pelota no se dispara de nuevo
 }
 
+/*función que establece todos los valores como iniciales para poder ser llamada cuando se requiera
+reiniciar el juego cuando sea necesario*/
 void restart(){
-    control = Game.INICIO;
-    disparado = false;
-    guardado = false;
-    puntajeMax = 0;
-    totalDeValoresPie = 0;
-    wasd = loadImage("wasd.png");
-    arrows = loadImage("arrows.png");
-    listPie = new ArrayList<Informacion>();
-    loadInfo("graficaCircular");
+    control = Game.INICIO; // poner el juego en la pantalla inicial
+    disparado = false; //establecer que aún no se dispara la pelota
+    guardado = false;  //establecer que aún no se guardan las victorias
+    puntajeMax = 0; //establecer el puntaje máximo a 0
+    totalDeValoresPie = 0; //suma total de los valores del archivo
+    wasd = loadImage("wasd.png"); // cargar la imagen de las teclas WASD
+    arrows = loadImage("arrows.png"); //cargar la imagen de las flechas
+    listPie = new ArrayList<Informacion>(); //lista de la información que se obtiene del archivo
+    loadInfo("graficaCircular"); //cargar la información del archivo para la gráfica 
     //creación de las variables con los colores de cada jugador
     colorPlayer1 = color(#A2EDF9);
     colorPlayer2 = color(#E3462D);
-    //creación de los objetos de la n¿bola, el jugador 1 y el jugador 2
+    //creación de los objetos de la bola, el jugador 1 y el jugador 2
     bola = new Bola(colorPlayer1, 40);
+    //cada jugador en el cuarto de la pantalla correspondiente 
     player1 = new Barra(width/4 - bola.diametro*2, 3*height/4, bola.diametro*2, colorPlayer1);
     player2 = new Barra(3*width/4, 3*height/4, bola.diametro*2, colorPlayer2);
 }
 
 /*función para sumar los puntos al jugador correspondiente y registrar el puntaje maximo*/
 void sumarPuntos(){
-    if(control == Game.JUGANDO1){
-        player2.puntaje++;
-        if(player2.puntaje > puntajeMax)
+    if(control == Game.JUGANDO1){ //si es el turno del jugador 1
+        player2.puntaje++; //aumentar su puntaje 
+        if(player2.puntaje > puntajeMax) //si este jugador tiene la mayor puntuación, cambiarla
             puntajeMax = player2.puntaje;
-    }else if(control == Game.JUGANDO2){
+    }else if(control == Game.JUGANDO2){ //si es el turno del jugador 2, hacer lo mismo que en el anterior
         player1.puntaje++;
         if(player1.puntaje > puntajeMax)
             puntajeMax = player1.puntaje;
     }
-    if(puntajeMax == 5){
+    if(puntajeMax == 5){ //si alguno de los dos ya ganó cambiar la pantalla 
         control = Game.GANAR;
     }
 }
 
-void texto(String mensaje){
-    textAlign(CENTER);
-    textSize(45); 
-    fill(#15EAAD);
-    text(mensaje,width/2,height/2-100);
-}
-
 /*Función para mostrar las instrucciones en pantalla*/
 void instrucciones(){
+    //imprimir las imágenes
     imageMode(CENTER);
     image(wasd, width/4,height*.35,226,152);
     image(arrows, 3*width/4,height*.35,256,256);
+    //imprimir el texto
     textAlign(CENTER);
     textSize(55);
     text("INSTRUCCIONES",width/2,100);
