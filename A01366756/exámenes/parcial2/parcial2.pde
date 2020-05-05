@@ -1,14 +1,6 @@
 import java.util.Collections;//libreria utilizada para ordenar la lista de objetos
 import java.util.*;
 
-/*
-TODO:
-- Hacer que se pueda parar 
-- Hacer que la pelota no pueda rebotar por abajo del jugador
-- Hacer que la pelota tenga una dirección diferente cada que choca con un jugador
-- Poner el contador de rebotes
-*/
-
 boolean disparado = false; //variable para controlar cuando se va a disparar la pelota
 boolean guardado = false; //variable para controlar cuando ya se hizo el guardado de la victoria
 boolean pausado = false; //variable para controlar cuando se hizo el pausado del juego
@@ -52,7 +44,7 @@ public class Barra {
     float ancho; //ancho de la figura
     static final int alto = 25; //altura de la figura
     int puntaje = 0; //puntaje correspondiente a la figura
-    
+
     //constructor del objeto
     Barra(float x, float y, float ancho, color colorBarra){
         this.x = x;
@@ -97,8 +89,10 @@ public class Bola {
     float radio; //radio de la pelota
     float diametro; //diametro de la pelota
     float deg = -25; //grados para la dirección del componente
+    float deg2; //variable ausiliar para modificar la dirección en x aleatoriamente
     color colorBola; //color de la pelota
     boolean tope = false; //tope de la flecha que apunta la dirección
+    int noRebotes = 0; //numero de rebotes en las paredes laterales
 	
     //constructor del objeto
     Bola(color colorBola, float diametro){
@@ -110,6 +104,7 @@ public class Bola {
         this.x = width/2;
         this.y = height/2;
     }
+
     /*Función que printea la pelota y al mismo tiempo checa si ha chocado con alguna de las
     dos barras del jugador y también cualquier colisión con los bordes de la cancha*/
     void display(Barra player1, Barra player2){
@@ -117,28 +112,39 @@ public class Bola {
         if(!disparado){
             //pintar la flecha que indica la dirección de la pelota 
             flechaDireccion();
+            float deg2 = deg; //guardar la variable en el auxiliar
         } else {
             //mover la pelota en la direccion que se le dio al ser disparada
             this.x += velGeneral*velX;
             this.y += velGeneral*velY;
             //si la pelota choca contra alguna de las paredes del juego, cambia de dirección
-            if((x<radio)||(x>width))//paredes laterales
+            if((x<radio)||(x>width)){//paredes laterales
                 velX *= -1;
-            if(y<radio+100) //techo
+                noRebotes++;
+                if(noRebotes==5) //si ya fueron 5 rebotes se le da un punto al 
+                    pierde(true);
+            }if(y<radio+100){ //techo
                 velY *= -1;
-            else if(y>height-50-radio){ //linea punteada de abajo
-                pierde();
+                noRebotes = 0; //si rebota en el techo reiniciar el contador
+            }else if(y>height-50-radio){ //linea punteada de abajo
+                deg = -25;
+                tope = false;
+                pierde(false);
             } 
             if(control == Game.JUGANDO1){ //si es el turno del jugador1
-                if(( y+radio >=player1.y)&& (y-radio <= player1.y+player1.alto) &&(x>=player1.x)&&(x<= player1.x+player1.ancho)){
+                deg2 = random(deg2-20, deg2+20);
+                if(( y+radio >=player1.y)&& (y-radio <= player1.y+player1.alto) &&(x>=player1.x)&&(x<= player1.x+player1.ancho)&&(velY>0)){
                     velY *= -1;
+                    velX = cos(radians(deg2)); //cambiar de manera aleatoria la dirección en x
                     control = Game.JUGANDO2; //cambiar al turno del jugador 2
                     colorBola = colorPlayer2; //cambiar el color de la pelota
                 }
             } 
             if( control == Game.JUGANDO2){// si es el turno del jugador2
-                if(( y+radio >=player2.y) && (y-radio <= player2.y+player2.alto) && (x>=player2.x) && (x<= player2.x+player2.ancho)){
+                deg2 = random(deg2-20, deg2+20);
+                if(( y+radio >=player2.y) && (y-radio <= player2.y+player2.alto) && (x>=player2.x) && (x<= player2.x+player2.ancho)&&(velY>0)){
                     velY *= -1;
+                    velX = cos(radians(deg2)); //cambiar de manera aleatoria la dirección en x
                     control = Game.JUGANDO1; //cambiar al turno del jugador 1
                     colorBola = colorPlayer1;//cambiar el color de la pelota
                 }
@@ -364,9 +370,9 @@ void cancha(){
 }
 
 /*función para reiniciar la partida para que continuae el juego después de que caiga la pelota*/
-void pierde(){
+void pierde(boolean invertido){
     // Sumar los puntos al puntaje del jugador correspondiente
-    sumarPuntos();
+    sumarPuntos(invertido);
     bola.x = width/2; // reestablecer la posición en x de la pelota
     bola.y = height/2; // reestablecer la posición en y de la pelota
     disparado = false; // establecer que la pelota no se dispara de nuevo
@@ -394,20 +400,41 @@ void restart(){
     player2 = new Barra(3*width/4, 3*height/4, bola.diametro*2, colorPlayer2);
 }
 
-/*función para sumar los puntos al jugador correspondiente y registrar el puntaje maximo*/
-void sumarPuntos(){
-    if(control == Game.JUGANDO1){ //si es el turno del jugador 1
-        player2.puntaje++; //aumentar su puntaje 
-        if(player2.puntaje > puntajeMax) //si este jugador tiene la mayor puntuación, cambiarla
-            puntajeMax = player2.puntaje;
-    }else if(control == Game.JUGANDO2){ //si es el turno del jugador 2, hacer lo mismo que en el anterior
-        player1.puntaje++;
-        if(player1.puntaje > puntajeMax)
-            puntajeMax = player1.puntaje;
+/*función para sumar los puntos al jugador correspondiente y registrar el puntaje maximo, recibe un parametro
+que dice si se va a realizar el sumado de los puntajes invertido o si se va a realizar como normalmente es,
+esto para el caso en el que la pelota rebote 5 veces en una pared lateral*/
+void sumarPuntos(boolean invertido){
+    switch (control) {
+        case JUGANDO1 :
+            if(!invertido)
+                sumarPuntosJugador2();
+            else
+                sumarPuntosJugador1();
+        break;
+        case JUGANDO2 :
+            if(!invertido)
+                sumarPuntosJugador1();
+            else
+                sumarPuntosJugador2();
+        break;	
     }
     if(puntajeMax == 5){ //si alguno de los dos ya ganó cambiar la pantalla 
         control = Game.GANAR;
     }
+}
+
+/*función para sumar los puntos al jugador 1*/
+void sumarPuntosJugador1(){
+    player1.puntaje++; //aumentar su puntaje 
+    if(player1.puntaje > puntajeMax) //si este jugador tiene la mayor puntuación, cambiarla
+        puntajeMax = player1.puntaje;
+}
+
+/*función para sumar los puntos al jugador 2*/
+void sumarPuntosJugador2(){
+    player2.puntaje++; //aumentar su puntaje 
+    if(player2.puntaje > puntajeMax) //si este jugador tiene la mayor puntuación, cambiarla
+        puntajeMax = player2.puntaje;
 }
 
 /*función para hacer la pausa del juego e imprimir el mensaje de que está pausado el juego*/
@@ -440,6 +467,7 @@ void instrucciones(){
     text("Presione espacio para disparar\n"+
     "Presione 'p' o 'P' para pausar\n"+
     "Presione 'r' o 'R' para reiniciar\n"+
+    "Presione la tecla ESC para salir\n"+
     "De click para continuar",width/2,height*.70);
     fill(0);
 }
